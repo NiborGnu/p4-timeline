@@ -35,10 +35,10 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    text-align: center;
 }
 
 main {
+    margin: 1% 2%;
     flex: 1 0 auto;
     background-color: var(--white);
 }
@@ -73,6 +73,7 @@ h6 {
 
 /* Footer */
 footer {
+    text-align: center;
     background-color: var(--gray);
     box-shadow: var(--top-shadow);
     width: 100%;
