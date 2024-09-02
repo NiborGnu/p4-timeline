@@ -1,18 +1,26 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
+from .models import Profile
 
 
-# Unregister the default User, Group
+# Unregister the default Group
 admin.site.unregister(Group)
-admin.site.unregister(User)
 
+# Put Profile in User Model
+class ProfileInline(admin.StackedInline):
+    model = Profile
 
 # User Model
 class UserAdmin(admin.ModelAdmin):
     model = User
     # Display username
     fields = ['username']
+    inlines = [ProfileInline]
 
+# Unregister the default User
+admin.site.unregister(User)
 
-# Register the new User model
+# Register the new User
 admin.site.register(User, UserAdmin)
+
+
