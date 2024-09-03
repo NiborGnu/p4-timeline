@@ -34,13 +34,7 @@ class TimePost(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=400)
     created_at = models.DateTimeField(auto_now_add=True)
+    # TODO: Add a image to a post (Install pillow!)
+    # image = models.ImageField(upload_to='images/', blank=True, null=True)
     # TODO: Add a comment to a post
     # TODO: Add a like/dislike to a post
-    # TODO: Add a image to a post
-
-    def __str__(self):
-        return(
-            f"{self.user} "
-            f"({self.created_at:%H:%M on %Y-%m-%d}): "
-            f"{self.body}..."
-        )

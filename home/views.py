@@ -1,13 +1,25 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, TimePost
+from .forms import TimePostForm
 
 
 def index(request):
     if request.user.is_authenticated:
-        timeposts = TimePost.objects.all().order_by('-created_at')
+        form = TimePostForm(request.POST or None)
+        if form.is_valid():
+            timepost = form.save(commit=False)
+            timepost.user = request.user
+            timepost.save()
+            messages.success(request, 'Your TimePost was created successfully')
+            return redirect('home')
 
-    return render(request, 'home/index.html', {'timeposts': timeposts})
+
+        timeposts = TimePost.objects.all().order_by('-created_at')
+        return render(request, 'home/index.html', {'timeposts': timeposts, 'form': form})
+    else:
+        timeposts = TimePost.objects.all().order_by('-created_at')
+        return render(request, 'home/index.html', {'timeposts': timeposts})
 
 
 def profiles(request):
