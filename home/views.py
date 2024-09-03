@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, TimePost
 
 
 def index(request):
-    return render(request, 'home/index.html')
+    if request.user.is_authenticated:
+        timeposts = TimePost.objects.all().order_by('-created_at')
+
+    return render(request, 'home/index.html', {'timeposts': timeposts})
 
 
 def profiles(request):
@@ -19,6 +22,7 @@ def profiles(request):
 def profile(request, pk):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id=pk)
+        timeposts = TimePost.objects.filter(user_id=pk).order_by('-created_at')
         # Form logic
         if request.method == 'POST':
             # Get current user
@@ -35,7 +39,7 @@ def profile(request, pk):
 
 
 
-        return render(request, 'home/profile.html', {'profile': profile})
+        return render(request, 'home/profile.html', {'profile': profile, 'timeposts': timeposts})
     else:
         messages.success(request, 'You must be logged in to view this page...')
         return redirect('home')

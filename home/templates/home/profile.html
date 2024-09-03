@@ -6,6 +6,26 @@
     <div class="row">
         <div class="col-8">
             <h1>{{ profile.user.username }}'s Profile</h1>
+            <br>
+            {% if timeposts %}
+            {% for timepost in timeposts %}
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                    <p class="card-text">{{ timepost }} <br></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+            {% endif %}
         </div>
         <div class="col-4">
             <div class="card">

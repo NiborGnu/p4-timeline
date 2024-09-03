@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
-from .models import Profile
+from .models import Profile, TimePost
 
 
 # Unregister the default Group
@@ -23,4 +23,5 @@ admin.site.unregister(User)
 # Register the new User
 admin.site.register(User, UserAdmin)
 
-
+# Register TimePost
+admin.site.register(TimePost)
