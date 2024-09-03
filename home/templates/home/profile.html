@@ -2,67 +2,62 @@
 
 {% block content %}
 {% if profile %}
-<div class="container text-center">
+<div class="container">
     <div class="row">
         <div class="col-8">
-            <h1>{{ profile.user.username }}'s Profile</h1>
+            <h1 class="text-center">{{ profile.user.username }}'s Profile</h1>
             <br>
             {% if timeposts %}
             {% for timepost in timeposts %}
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-
-                    <p class="card-text">{{ timepost }} <br></p>
+                    <h5 class="card-title">Card title</h5> <!-- Fix Card title -->
+                    <p class="card-text">{{ timepost.body }} <br></p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">{{ timepost.created_at }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">{{ timepost.user }}</a>
                 </div>
             </div>
             <br>
             {% endfor %}
             {% endif %}
         </div>
-        <div class="col-4">
-            <div class="card">
+        <div class="col-4 text-center">
+            <div class="card mb-3">
                 <div class="card-header">
-                    <strong>Follows</strong><br>
+                    <strong>Follows</strong>
                 </div>
                 <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.follow.all %}
-                        <a href="{% url 'profile' following.user.id %}">{{ following }}</a><br>
+                        <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
                         {% endfor %}
                     </p>
                 </div>
             </div>
-            <br><br>
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
-                    <strong>Followed By</strong><br>
+                    <strong>Followed By</strong>
                 </div>
                 <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.followed_by.all %}
-                        <a href="{% url 'profile' following.user.id %}">{{ following }}</a><br>
+                        <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
                         {% endfor %}
                     </p>
                 </div>
-            </div><br>
-            <form method="POST">
+            </div>
+            <form method="POST text-center">
                 {% csrf_token %}
                 {% if profile in user.profile.follow.all %}
                 <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">Unfollow</button>
-
                 {% else %}
                 <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>
-
                 {% endif %}
-
             </form>
         </div>
     </div>

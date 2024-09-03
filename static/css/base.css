@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;500;&family=SUSE:wght@100..800&display=swap');
 
-/* General styles */
+/* General styles 
 * {
     margin: 0;
     padding: 0;
     border: 0;
     box-sizing: border-box;
 }
-
+*/
 :root {
     /* Fonts */
     --titel: 'SUSE', sans-serif;
@@ -25,6 +25,7 @@
 
 }
 
+/* Get footer to the bottom */
 html,
 body {
     height: 100%;
@@ -32,17 +33,15 @@ body {
 
 body {
     font-family: var(--main-font);
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    margin: 1% 2%;
     flex: 1 0 auto;
-    background-color: var(--white);
 }
 
+/* Title Font */
 h1,
 h2,
 h3,
@@ -56,12 +55,22 @@ h6 {
 .navbar-custom {
     background-color: var(--gray);
     box-shadow: var(--bottom-shadow);
+    margin-bottom: 20px;
 }
 
+/* Navbar underline */
 .active {
     border-bottom: 2px solid var(--black);
     font-weight: 500;
 }
+
+/* align-center */
+.align-center {
+    text-align: center;
+    align-items: center;
+}
+
+
 
 /* Form */
 .form {
@@ -73,6 +82,7 @@ h6 {
 
 /* Footer */
 footer {
+    margin-top: 20px;
     text-align: center;
     background-color: var(--gray);
     box-shadow: var(--top-shadow);
