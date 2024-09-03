@@ -2,43 +2,46 @@
 {% load static %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="container text-center">
     <div class="row">
-        {% if form %}
         <h1>Timeline</h1>
         <div class="col-8">
             {% else %}
-            <div class="col-8">
-                <h1>Timeline</h1>
-                {% endif %}
-                {% for timepost in timeposts %}
-                <div class="card">
-                    {% if timepost.image %}
-                    <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
-                    <!-- I will add this later -->
-                    {% endif %}
-                    <div class="card-body">
-                        <p class="card-text">{{ timepost.body }} <br></p>
+            <div class="container text-center center-custom">
+                <div class="row">
+                    <div>
+                        <h1>Timeline</h1>
+                        {% endif %}
+                        {% for timepost in timeposts %}
+                        <div class="card">
+                            {% if timepost.image %}
+                            <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
+                            <!-- I will add this later -->
+                            {% endif %}
+                            <div class="card-body">
+                                <p class="card-text">{{ timepost.body }} <br></p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-muted ether-side">
+                                    <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
+                                    <small>Made by <a
+                                            href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
+                                </li>
+                            </ul>
+                        </div>
+                        <br>
+                        {% endfor %}
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-muted ether-side">
-                            <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
-                            <small>Made by <a
-                                    href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small></li>
-                    </ul>
+                    {% if form %}
+                    <div class="col-4">
+                        <form method=POST>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-secondary">TimePost</button>
+                        </form>
+                    </div>
+                    {% endif %}
                 </div>
-                <br>
-                {% endfor %}
             </div>
-            {% if form %}
-            <div class="col-4">
-                <form method=POST>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-secondary">TimePost</button>
-                </form>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    {% endblock %}
+            {% endblock %}

@@ -1,13 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;500;&family=SUSE:wght@100..800&display=swap');
 
-/* General styles 
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-}
-*/
+/* Variables */
 :root {
     /* Fonts */
     --titel: 'SUSE', sans-serif;
@@ -23,6 +16,11 @@
     --bottom-shadow: -1px 1px 5px 0 var(--black);
     --border: 1px solid var(--gray);
 
+}
+
+/* Size */
+.size-550 {
+    max-width: 550px;
 }
 
 /* Get footer to the bottom */
@@ -64,6 +62,12 @@ h6 {
     font-weight: 500;
 }
 
+/* Center */
+.center-custom {
+    margin: 0 auto;
+}
+
+/* Text at Ether Side */
 li.ether-side {
     display: flex;
     justify-content: space-between;
