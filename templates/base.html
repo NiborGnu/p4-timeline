@@ -16,11 +16,8 @@
 </head>
 
 <body>
-    <header>
-        {% include 'includes/navbar.html' %}
-    </header>
-
-    <main>
+    {% include 'includes/navbar.html' %}
+    <main class="container">
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">

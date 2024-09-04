@@ -52,14 +52,23 @@
                     </p>
                 </div>
             </div>
+            {% if profile.user == user %}
+            {% else %}
             <form method="POST">
                 {% csrf_token %}
                 {% if profile in user.profile.follow.all %}
-                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">Unfollow</button>
+                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">Unfollow
+                    {{ profile.user.username|lower }}</button>
                 {% else %}
-                <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow</button>
+                <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow
+                    {{ profile.user.username|lower }}</button>
                 {% endif %}
             </form>
+            {% endif %}
+            <br>
+            {% if profile.user == user %}
+            <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Update Profile</a>
+            {% endif %}
         </div>
     </div>
 </div>
