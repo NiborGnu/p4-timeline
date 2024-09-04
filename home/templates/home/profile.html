@@ -34,6 +34,7 @@
                     <p class="card-text">
                         {% for following in profile.follow.all %}
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
+                        <br>
                         {% endfor %}
                     </p>
                 </div>
@@ -46,6 +47,7 @@
                     <p class="card-text">
                         {% for following in profile.followed_by.all %}
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
+                        <br>
                         {% endfor %}
                     </p>
                 </div>

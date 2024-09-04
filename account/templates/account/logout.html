@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center text-center">
+    <form method=POST action="{% url 'logout' %}">
+        <h1>Logout</h1><br>
+        {% csrf_token %}
+        <p>Are you sure you want to logout? <br></p>
+        <button type="submit" name="logout-yes" value="Yes" class="btn btn-success">Yes</button>
+        <button type="submit" name="logout-no" value="No" class="btn btn-danger">No</button>
+    </form>
+</div>
+
+{% endblock %}
