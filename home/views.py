@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Profile, TimePost
 from .forms import TimePostForm
@@ -47,11 +47,28 @@ def profile(request, pk):
             # Follow
             else:
                 current_user_profile.follow.add(profile)
-
-
-
-
         return render(request, 'home/profile.html', {'profile': profile, 'timeposts': timeposts})
     else:
         messages.success(request, 'You must be logged in to view this page...')
         return redirect('home')
+    
+
+def TimePost_like(request, pk):
+    timepost = get_object_or_404(TimePost, id=pk)
+    if timepost.likes.filter(id=request.user.id).exists():
+        timepost.likes.remove(request.user)
+    else:
+        if timepost.dislikes.filter(id=request.user.id).exists():
+            timepost.dislikes.remove(request.user)
+        timepost.likes.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def TimePost_dislike(request, pk):
+    timepost = get_object_or_404(TimePost, id=pk)
+    if timepost.dislikes.filter(id=request.user.id).exists():
+        timepost.dislikes.remove(request.user)
+    else:
+        if timepost.likes.filter(id=request.user.id).exists():
+            timepost.likes.remove(request.user)
+        timepost.dislikes.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER'))

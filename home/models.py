@@ -34,7 +34,18 @@ class TimePost(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=400)
     created_at = models.DateTimeField(auto_now_add=True)
+    # Like/Dislike to a post
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+    dislikes = models.ManyToManyField(User, related_name='disliked_posts', blank=True)
+    
+    # Number of likes
+    def number_of_likes(self):
+        return self.likes.count()
+    
+    # Number of dislikes
+    def number_of_dislikes(self):
+        return self.dislikes.count()
+    
     # TODO: Add a image to a post (Install pillow!)
     # image = models.ImageField(upload_to='images/', blank=True, null=True)
     # TODO: Add a comment to a post
-    # TODO: Add a like/dislike to a post

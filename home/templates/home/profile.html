@@ -17,6 +17,12 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-muted ether-side">
+                        <small><a href="{% url 'like' timepost.id %}">Likes: </a>
+                            {{ timepost.number_of_likes }}</small>
+                        <small><a href="{% url 'dislike' timepost.id %}">Dislikes:
+                            </a>{{ timepost.number_of_dislikes }}</small>
+                    </li>
+                    <li class="list-group-item text-muted ether-side">
                         <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
                         <small>Made by <a href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
                     </li>

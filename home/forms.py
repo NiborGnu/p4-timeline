@@ -17,4 +17,4 @@ class TimePostForm(forms.ModelForm):
 
     class Meta:
         model = TimePost
-        exclude = ('user',)
+        exclude = ('user', 'likes', 'dislikes')

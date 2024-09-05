@@ -7,41 +7,53 @@
     <div class="row">
         <h1>Timeline</h1>
         <div class="col-8">
-            {% else %}
-            <div class="container text-center center-custom">
-                <div class="row">
-                    <div>
-                        <h1>Timeline</h1>
-                        {% endif %}
-                        {% for timepost in timeposts %}
-                        <div class="card">
-                            {% if timepost.image %}
-                            <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
-                            <!-- I will add this later -->
-                            {% endif %}
-                            <div class="card-body">
-                                <p class="card-text">{{ timepost.body }} <br></p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item text-muted ether-side">
-                                    <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
-                                    <small>Made by <a
-                                            href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
-                                </li>
-                            </ul>
-                        </div>
-                        <br>
-                        {% endfor %}
-                    </div>
-                    {% if form %}
-                    <div class="col-4">
-                        <form method=POST>
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-secondary">TimePost</button>
-                        </form>
-                    </div>
-                    {% endif %}
+            {% for timepost in timeposts %}
+            <div class="card">
+                <!------------------I will add image later? ----------------
+                    {% if timepost.image %}
+                    <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
+                    {% endif %}-->
+                <div class="card-body">
+                    <p class="card-text">{{ timepost.body }} <br></p>
                 </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted ether-side">
+                        <small><a href="{% url 'like' timepost.id %}"><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                            {{ timepost.number_of_likes }}</small>
+                        <small><a href="{% url 'dislike' timepost.id %}"><i
+                                    class="fa-solid fa-thumbs-down fa-xl"></i></a>
+                            {{ timepost.number_of_dislikes }}</small>
+                    </li>
+                    <li class="list-group-item text-muted ether-side">
+                        <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
+                        <small>Made by <a href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
+                    </li>
+                </ul>
             </div>
-            {% endblock %}
+            <br>
+            {% endfor %}
+        </div>
+        {% if form %}
+        <div class="col-4">
+            <form method=POST>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-secondary">TimePost</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="container text-center center-custom">
+    <div class="row">
+        <div>
+            <h1>Welcome!</h1>
+            <p>Sign up or login to get started TimePosting and following!</p>
+            <a href="{% url 'register' %}"><button type="submit" class="btn btn-secondary">Register</button></a>
+            <a href="{% url 'login' %}"><button type="submit" class="btn btn-secondary">Login</button></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
