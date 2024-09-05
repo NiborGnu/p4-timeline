@@ -66,17 +66,34 @@ def followers(request, pk):
     if request.user.is_authenticated:
         # Getting the right profile for the user ID (pk)
         profile = get_object_or_404(Profile, user_id=pk)
-        # Get the followers of the user
-        followers_list = profile.followed_by.all()
+        # Get the followers of the user, excluding the current user's own profile
+        followers_list = profile.followed_by.exclude(user_id=request.user.id)
         # Only allow the logged-in user to view their own followers page
         if request.user.id == pk:
             return render(request, 'home/followers.html', {'followers': followers_list})
         else:
             messages.success(request, 'That is not your followers page')
             return redirect('home')
+    else:
+        messages.success(request, 'You must be logged in to view this page')
+        return redirect('home')
+
+def follows(request, pk):
+    if request.user.is_authenticated:
+        # Getting the right profile for the user ID (pk)
+        profile = get_object_or_404(Profile, user_id=pk)
+        # Get the profiles this user is following, excluding their own profile
+        follows_list = profile.follow.exclude(user_id=request.user.id)
+        # Only allow the logged-in user to view their own follows page
+        if request.user.id == pk:
+            return render(request, 'home/follows.html', {'follows': follows_list})
+        else:
+            messages.success(request, 'That is not your follows page')
+            return redirect('home')
     else: 
         messages.success(request, 'You must be logged in to view this page')
         return redirect('home')
+
 
 def unfollow(request, pk):
     if request.user.is_authenticated:
