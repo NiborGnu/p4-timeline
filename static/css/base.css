@@ -63,6 +63,16 @@ li.ether-side {
     justify-content: space-between;
 }
 
+/* Unfollow button */
+.unfollow {
+    color: red;
+}
+
+/* Follow button */
+.follow {
+    color: green;
+}
+
 /* Form */
 .form {
     width: 100%;

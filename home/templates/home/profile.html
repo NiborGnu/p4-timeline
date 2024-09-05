@@ -38,9 +38,15 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        {% for following in profile.follow.all %}
+                        {% for following in profile.follow.all|slice:6 %}
+                        {% if following != profile %}
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
+                        {% if user == profile.user %}
+                        <a class="unfollow" href="{% url 'unfollow' following.user.id %}"><i
+                                class=" fa-solid fa-user-minus"></i></a>
+                        {% endif %}
                         <br>
+                        {% endif %}
                         {% endfor %}
                     </p>
                 </div>
@@ -52,10 +58,25 @@
                 <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.followed_by.all %}
+                        {% if following != profile %}
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
+                        {% if user == profile.user %}
+                        {% if following not in user.profile.follow.all %}
+                        <a class="follow" href="{% url 'follow' following.user.id %}">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </a>
+                        {% else %}
+                        <a class="unfollow" href="{% url 'unfollow' following.user.id %}"><i
+                                class=" fa-solid fa-user-minus"></i></a>
+                        {% endif %}
+                        {% endif %}
                         <br>
+                        {% endif %}
                         {% endfor %}
                     </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'followers' profile.user.id %}">See All...</a>
                 </div>
             </div>
             {% if profile.user == user %}

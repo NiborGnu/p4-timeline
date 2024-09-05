@@ -51,7 +51,34 @@ def profile(request, pk):
     else:
         messages.success(request, 'You must be logged in to view this page...')
         return redirect('home')
-    
+
+def unfollow(request, pk):
+    if request.user.is_authenticated:
+        # Get the profile to unfollow
+        profile = Profile.objects.get(user_id=pk)
+        # Unfollow
+        request.user.profile.follow.remove(profile)
+        request.user.profile.save()
+        # Message unfollowed(profile)
+        messages.success(request, f'You have unfollowed {profile.user.username}')
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, 'You must be logged in to view this page...')
+        return redirect('home')
+
+def follow(request, pk):
+    if request.user.is_authenticated:
+        # Get the profile to Follow
+        profile = Profile.objects.get(user_id=pk)
+        # Follow
+        request.user.profile.follow.add(profile)
+        request.user.profile.save()
+        # Message Followed(profile)
+        messages.success(request, f'You are now following {profile.user.username}')
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, 'You must be logged in to view this page...')
+        return redirect('home')
 
 def TimePost_like(request, pk):
     timepost = get_object_or_404(TimePost, id=pk)
