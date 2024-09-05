@@ -18,11 +18,6 @@
 
 }
 
-/* Size */
-.size-550 {
-    max-width: 550px;
-}
-
 /* Get footer to the bottom */
 html,
 body {
@@ -60,11 +55,6 @@ h6 {
 .active {
     border-bottom: 2px solid var(--black);
     font-weight: 500;
-}
-
-/* Center */
-.center-custom {
-    margin: 0 auto;
 }
 
 /* Text at Ether Side */
