@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # Custom App
     'home',
     'account',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -70,10 +71,15 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Connected to postgresql database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
+        'HOST': os.environ.get('HOST'),
+        'PORT': '',          
     }
 }
 
