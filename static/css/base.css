@@ -58,9 +58,26 @@ h6 {
 }
 
 /* Text at Ether Side */
-li.ether-side {
+.ether-side {
     display: flex;
     justify-content: space-between;
+}
+
+/* Hover effect on DELETE */
+.btn-danger:hover {
+    background-color: white;
+    color: #dc3545;
+}
+
+/* Hover effect on EDIT */
+.btn-warning:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Edit field hidden */
+.edit-form-hidden {
+    display: none;
 }
 
 /* Unfollow button */
