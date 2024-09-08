@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 {% if profile %}
@@ -8,25 +9,50 @@
         <div class="col-8">
             {% for timepost in timeposts %}
             <div class="card">
-                {% if timepost.image %}
-                <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
-                <!-- I will add this later -->
-                {% endif %}
                 <div class="card-body">
-                    <p class="card-text">{{ timepost.body }} <br></p>
+                    <div id="timepost-view-{{ timepost.id }}">
+                        <p class="card-text">{{ timepost.body }}</p>
+                    </div>
+                    <div id="edit-form-{{ timepost.id }}" class="edit-form-hidden">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ timepost.id }}">
+                            <div class="form-group">
+                                <textarea name="body" rows="4" class="form-control">{{ timepost.body }}</textarea>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="button" class="btn btn-secondary"
+                                    onclick="toggleEdit('{{ timepost.id }}')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted ether-side">
+                            <small><a href="{% url 'like' timepost.id %}"><i
+                                        class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                                {{ timepost.number_of_likes }}</small>
+                            <small><a href="{% url 'dislike' timepost.id %}"><i
+                                        class="fa-solid fa-thumbs-down fa-xl"></i></a>
+                                {{ timepost.number_of_dislikes }}</small>
+                        </li>
+                        <li class="list-group-item text-muted ether-side">
+                            <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
+                            {% if timepost.user == user %}
+                            <form action="{% url 'delete_timepost' timepost.id %}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                        class="fa-regular fa-trash-can"></i></button>
+                            </form>
+                            <button class="btn btn-warning btn-sm" onclick="toggleEdit('{{ timepost.id }}')">
+                                <i class="fa-regular fa-pen-to-square"></i></button>
+                            {% endif %}
+                            <small>Made by <a
+                                    href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-muted ether-side">
-                        <small><a href="{% url 'like' timepost.id %}">Likes: </a>
-                            {{ timepost.number_of_likes }}</small>
-                        <small><a href="{% url 'dislike' timepost.id %}">Dislikes:
-                            </a>{{ timepost.number_of_dislikes }}</small>
-                    </li>
-                    <li class="list-group-item text-muted ether-side">
-                        <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
-                        <small>Made by <a href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
-                    </li>
-                </ul>
             </div>
             <br>
             {% endfor %}
@@ -88,10 +114,10 @@
                 {% csrf_token %}
                 {% if profile in user.profile.follow.all %}
                 <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">Unfollow
-                    {{ profile.user.username|lower }}</button>
+                    {{ profile.user.username }}</button>
                 {% else %}
                 <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow
-                    {{ profile.user.username|lower }}</button>
+                    {{ profile.user.username }}</button>
                 {% endif %}
             </form>
             {% endif %}
