@@ -58,7 +58,7 @@ def follow(request, pk):
         return redirect('home')
 
 
-def TimePost_like(request, pk):
+def timepost_like(request, pk):
     # Get the TimePost by its primary key (id)
     timepost = get_object_or_404(TimePost, id=pk)
     # Check if the current user has already liked the TimePost
@@ -76,7 +76,7 @@ def TimePost_like(request, pk):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-def TimePost_dislike(request, pk):
+def timepost_dislike(request, pk):
     # Get the TimePost by its primary key (id)
     timepost = get_object_or_404(TimePost, id=pk)
     # Check if the current user has already disliked the TimePost
@@ -89,6 +89,40 @@ def TimePost_dislike(request, pk):
             timepost.likes.remove(request.user)
         # Add the dislike to the TimePost
         timepost.dislikes.add(request.user)
-    
     # Redirect back to the page the user came from
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_timepost(request, pk):
+    if request.user.is_authenticated:
+        timepost = get_object_or_404(TimePost, id=pk)
+        if timepost.user == request.user:
+            timepost.delete()
+            messages.success(request, 'Your TimePost was deleted successfully')
+        else:
+            messages.error(request, "You don't have permission to delete this post.")
+    else:
+        messages.error(request, 'You must be logged in to remove TimePosts...')
+        return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def edit_timepost(request, pk):
+    if request.user.is_authenticated:
+        timepost = get_object_or_404(TimePost, id=pk)
+        if timepost.user == request.user:
+            form = TimePostForm(request.POST or None, instance=timepost)
+            if request.method == 'POST':
+                if form.is_valid():
+                    timepost = form.save(commit=False)
+                    timepost.user = request.user
+                    form.save()
+                    messages.success(request, 'Your TimePost was updated successfully.')
+                    return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, 'There was an error updating the TimePost.')
+        else:
+            form = TimePostForm(instance=timepost)
+    else:
+        messages.error(request, 'You must be logged in to edit TimePosts...')
+        return redirect('home')
