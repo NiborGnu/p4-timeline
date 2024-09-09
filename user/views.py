@@ -4,12 +4,12 @@ from home.models import TimePost
 from user.models import Profile
 
 
-def profiles(request):
+def users(request):
     if request.user.is_authenticated:
-        # Get all profiles excluding the current user's profile
-        profiles = Profile.objects.exclude(user=request.user)
-        # Render the profiles page with the list of profiles
-        return render(request, 'user/profiles.html', {'profiles': profiles})
+        # Get all users excluding the current user's profile
+        users = Profile.objects.exclude(user=request.user)
+        # Render the users page with the list of users
+        return render(request, 'user/users.html', {'users': users})
     else:
         # Show a message if the user is not authenticated
         messages.success(request, 'You must be logged in to view this page')
