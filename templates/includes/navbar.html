@@ -15,38 +15,37 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link 
-                    {% if url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link {% if url_name == 'home' %}active{% endif %}" aria-current="page"
+                            href="{% url 'home' %}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link 
-                    {% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' request.user.id %}">My
-                            Profile</a>
+                        <a class="nav-link {% if url_name == 'profile' %}active{% endif %}"
+                            href="{% url 'profile' request.user.id %}">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if url_name == 'profiles' %}active{% endif %}"
+                        <a class="nav-link {% if url_name == 'users' %}active{% endif %}"
                             href="{% url 'users' %}">Users</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'logout' %}active{% endif %}"
                             href="{% url 'logout' %}">Logout</a>
                     </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if url_name == 'login' %}active{% endif %}"
-                            href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if url_name == 'register' %}active{% endif %}"
-                            href="{% url 'register' %}">Register</a>
-                    </li>
-                    {% endif %}
                 </ul>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if url_name == 'register' %}active{% endif %}"
+                        href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
                 {% if user.is_authenticated %}
                 <!-- Search -->
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" method="get" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search"
+                        value="{{ request.GET.q }}">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 {% endif %}

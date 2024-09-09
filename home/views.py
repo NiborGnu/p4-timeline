@@ -127,3 +127,23 @@ def edit_timepost(request, pk):
     else:
         messages.error(request, 'You must be logged in to edit TimePosts...')
         return redirect('home')
+
+
+def search(request):
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        query = request.GET.get('q', '')
+        if query:
+            # Get all users that match the search
+            results = Profile.objects.filter(user__username__icontains=query)
+        else:
+            results = Profile.objects.none()
+        # Render the search page with the search results and user context
+        return render(request, 'home/search.html', {
+            'results': results,
+            'user': request.user,  # Pass the actual user object to the template
+            'query': query  # Pass the query string if you need it in the template
+        })
+    else:
+        # Handle the case where the user is not authenticated (optional)
+        return redirect('login')  # Redirect to login or another page if not authenticated
