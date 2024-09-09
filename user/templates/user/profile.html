@@ -14,7 +14,7 @@
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
                     <div id="edit-form-{{ timepost.id }}" class="edit-form-hidden">
-                        <form method="POST" action="">
+                        <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ timepost.id }}">
                             <div class="form-group">

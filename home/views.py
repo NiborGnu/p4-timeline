@@ -110,19 +110,20 @@ def delete_timepost(request, pk):
 def edit_timepost(request, pk):
     if request.user.is_authenticated:
         timepost = get_object_or_404(TimePost, id=pk)
-        if timepost.user == request.user:
+        # Check if the user is the owner of the TimePost or if they are a superuser
+        if timepost.user == request.user or request.user.is_superuser:
             form = TimePostForm(request.POST or None, instance=timepost)
             if request.method == 'POST':
                 if form.is_valid():
                     timepost = form.save(commit=False)
                     timepost.user = request.user
-                    form.save()
-                    messages.success(request, 'Your TimePost was updated successfully.')
+                    timepost.save()
+                    messages.success(request, 'The TimePost was updated successfully.')
                     return redirect(request.META.get('HTTP_REFERER'))
-            else:
-                messages.error(request, 'There was an error updating the TimePost.')
+            return render(request, 'home/edit_timepost.html', {'form': form, 'timepost': timepost})
         else:
-            form = TimePostForm(instance=timepost)
+            messages.error(request, 'You do not have permission to edit this TimePost.')
+            return redirect('home')
     else:
         messages.error(request, 'You must be logged in to edit TimePosts...')
         return redirect('home')
