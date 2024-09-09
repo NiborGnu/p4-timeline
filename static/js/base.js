@@ -11,12 +11,3 @@ function toggleEdit(id) {
         editElement.style.display = "block"; // Show the edit form
     }
 }
-
-// Function to confirm deletion of a TimePost
-function confirmDelete(event) {
-    if (!confirm("Are you sure you want to delete this post?")) {
-        event.preventDefault(); // Prevent the form from submitting
-        return false;
-    }
-    return true;
-}
