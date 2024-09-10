@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;500;&family=SUSE:wght@100..800&display=swap');
+
+/* Variables */
+:root {
+    /* Fonts */
+    --titel: 'SUSE', sans-serif;
+    --main-font: 'Roboto', sans-serif;
+
+    /* Colors */
+    --gray: darkgray;
+    --black: black;
+    --white: white;
+
+    /* Utils */
+    --top-shadow: 1px -1px 5px 0 var(--black);
+    --bottom-shadow: -1px 1px 5px 0 var(--black);
+    --border: 1px solid var(--gray);
+
+}
+
+/* Get footer to the bottom */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--main-font);
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Title Font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--titel);
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: var(--gray);
+    box-shadow: var(--bottom-shadow);
+    margin-bottom: 20px;
+}
+
+/* Navbar underline */
+.active {
+    border-bottom: 2px solid var(--black);
+    font-weight: 500;
+}
+
+/* Text at Ether Side */
+.ether-side {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Hover effect on DELETE */
+.btn-danger:hover {
+    background-color: white;
+    color: #dc3545;
+}
+
+/* Hover effect on EDIT */
+.btn-warning:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Form hidden */
+.form-hidden {
+    display: none;
+}
+
+/* Unfollow button */
+.unfollow {
+    color: red;
+}
+
+/* Follow button */
+.follow {
+    color: green;
+}
+
+/* Form */
+.form {
+    width: 100%;
+    margin: 3% auto;
+    border-radius: 5px;
+    box-shadow: var(--top-shadow);
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    text-align: center;
+    background-color: var(--gray);
+    box-shadow: var(--top-shadow);
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.fa-brands {
+    padding: 10px 0;
+    margin: 15px;
+}
+
+.gh-icon {
+    color: black;
+}
+
+.li-icon {
+    color: #0A66C2;
+}
+
+.yt-icon {
+    color: red;
+}
