@@ -1,5 +1,5 @@
 from django import forms
-from .models import TimePost
+from .models import TimePost, Comment
 
 class TimePostForm(forms.ModelForm):
     body = forms.CharField(
@@ -18,3 +18,9 @@ class TimePostForm(forms.ModelForm):
     class Meta:
         model = TimePost
         exclude = ('user', 'likes', 'dislikes')
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from home.models import TimePost
+from home.models import TimePost, Comment
 from user.models import Profile
-from .forms import TimePostForm
+from .forms import TimePostForm, CommentForm
 
 
 def index(request):
@@ -147,3 +147,48 @@ def search(request):
     else:
         # Handle the case where the user is not authenticated (optional)
         return redirect('login')  # Redirect to login or another page if not authenticated
+
+
+def add_comment(request, pk):
+    timepost = get_object_or_404(TimePost, id=pk)
+    
+    if request.method == 'POST':
+        comment_body = request.POST.get('comment_body')
+        if comment_body:
+            Comment.objects.create(user=request.user, timepost=timepost, body=comment_body)
+            messages.success(request, 'Your comment was posted successfully.')
+        else:
+            messages.error(request, 'Comment cannot be empty.')
+    # Update comment count for the specific timepost
+    comment_count = Comment.objects.filter(timepost=timepost).count()
+    # Redirect back to the referring page with comment count
+    return redirect(f"{request.META.get('HTTP_REFERER')}?comment_count={comment_count}")
+
+
+# Delete Comment
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.user == comment.user or request.user.is_superuser:
+        comment.delete()
+        messages.success(request, 'Comment deleted successfully.')
+    else:
+        messages.error(request, 'You do not have permission to delete this comment.')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+# Edit Comment
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.user == comment.user or request.user.is_superuser:
+        if request.method == 'POST':
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Comment edited successfully.')
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            form = CommentForm(instance=comment)
+        return render(request, 'home/edit_comment.html', {'form': form, 'comment': comment})
+    else:
+        messages.error(request, 'You do not have permission to edit this comment.')
+        return redirect('home')

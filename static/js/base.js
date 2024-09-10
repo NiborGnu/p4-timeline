@@ -11,3 +11,13 @@ function toggleEdit(id) {
         editElement.style.display = "block"; // Show the edit form
     }
 }
+
+// Function to toggle comments section
+function toggleComments(id) {
+    var commentsSection = document.getElementById('comments-section-' + id);
+    if (commentsSection.style.display === 'none' || commentsSection.style.display === '') {
+        commentsSection.style.display = 'block'; // Show comments section
+    } else {
+        commentsSection.style.display = 'none'; // Hide comments section
+    }
+}

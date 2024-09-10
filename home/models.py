@@ -35,4 +35,9 @@ class TimePost(models.Model):
     # TODO: Add an image to a post (Install Pillow!)
     # image = models.ImageField(upload_to='images/', blank=True, null=True)
 
-    # TODO: Add a comment section to the post
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timepost = models.ForeignKey(TimePost, related_name='comments', on_delete=models.CASCADE)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

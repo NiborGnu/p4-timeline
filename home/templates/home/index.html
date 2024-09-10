@@ -17,7 +17,7 @@
                     <div id="timepost-view-{{ timepost.id }}">
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
-                    <div id="edit-form-{{ timepost.id }}" class="edit-form-hidden" style="display: none;">
+                    <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ timepost.id }}">
@@ -51,10 +51,109 @@
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             {% endif %}
+                            <!-- Comment Indicator -->
+                            {% if timepost.comments.exists %}
+                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
+                                onclick="toggleComments('{{ timepost.id }}')">
+                                <i class="fa-solid fa-comments"><small> {{ timepost.comments.count }}</small></i>
+                            </button>
+                            {% else %}
+                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
+                                onclick="toggleComments('{{ timepost.id }}')">
+                                <i class="fa-solid fa-comments"></i>
+                            </button>
+                            {% endif %}
                             <small>Made by <a
                                     href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
                         </li>
                     </ul>
+                </div>
+                <!-- Comments Section -->
+                <div class="card-footer comment-section form-hidden" id="comments-section-{{ timepost.id }}">
+                    <h5>Comments</h5>
+                    <ul class="list-group">
+                        {% for comment in timepost.comments.all %}
+                        <li class="list-group-item">
+                            {{ comment.body }}
+                            <div>
+                                <br>
+                                <small class="text-muted">{{ comment.created_at|date:"H:i Y-m-d" }}
+                                    By: <a href="{% url 'profile' comment.user.id %}">
+                                        {{ comment.user.username }}</a></small>
+                                {% if comment.user == user or user.is_superuser %}
+                                <!-- Edit Button -->
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editCommentModal-{{ comment.id }}">
+                                    <i class="fa-regular fa-pen-to-square"></i> Edit
+                                </button>
+                                <!-- Delete Button -->
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteCommentModal-{{ comment.id }}">
+                                    <i class="fa-regular fa-trash-can"></i> Delete
+                                </button>
+                            </div>
+                            <!-- Edit Comment Modal -->
+                            <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
+                                aria-labelledby="editCommentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editCommentModalLabel">Edit Comment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{% url 'edit_comment' comment.id %}">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <textarea name="body" class="form-control">{{ comment.body }}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Delete Comment Modal -->
+                            <div class="modal fade" id="deleteCommentModal-{{ comment.id }}" tabindex="-1"
+                                aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteCommentModalLabel">Confirm Deletion</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this comment?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form method="POST" action="{% url 'delete_comment' comment.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">No comments yet.</li>
+                        {% endfor %}
+                    </ul>
+                    <form method="POST" action="{% url 'add_comment' timepost.id %}">
+                        {% csrf_token %}
+                        <div class="form-group mt-3">
+                            <textarea name="comment_body" rows="2" class="form-control"
+                                placeholder="Add a comment..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+                    </form>
                 </div>
             </div>
             <!-- Delete Confirmation Modal -->

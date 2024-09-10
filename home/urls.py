@@ -11,4 +11,7 @@ urlpatterns = [
     path('delete_timepost/<int:pk>', views.delete_timepost, name='delete_timepost'),
     path('edit_timepost/<int:pk>', views.edit_timepost, name='edit_timepost'),
     path('search/', views.search, name='search'),
+    path('timepost/<int:pk>/comment/', views.add_comment, name='add_comment'),
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+    path('edit_comment/<int:comment_id>/', views.edit_comment, name='edit_comment'),
 ]

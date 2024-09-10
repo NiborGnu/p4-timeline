@@ -75,8 +75,8 @@ h6 {
     color: black;
 }
 
-/* Edit field hidden */
-.edit-form-hidden {
+/* Form hidden */
+.form-hidden {
     display: none;
 }
 
