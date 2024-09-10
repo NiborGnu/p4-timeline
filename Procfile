@@ -1,1 +1,1 @@
-web: gunicorn p4-timeline.wsgi
+web: gunicorn main.wsgi
