@@ -117,10 +117,22 @@ footer {
     color: black;
 }
 
+.gh-icon:hover {
+    color: white;
+}
+
 .li-icon {
     color: #0A66C2;
 }
 
+.li-icon:hover {
+    color: white;
+}
+
 .yt-icon {
     color: red;
+}
+
+.yt-icon:hover {
+    color: white;
 }
