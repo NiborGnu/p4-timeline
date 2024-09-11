@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<!-- Centered container for the registration form -->
 <div class="col-md-6 offset-md-3">
+    <!-- Registration form title -->
     <h1>Register</h1>
     <br>
+    <!-- Form for user registration -->
     <form method="POST" action="">
         {% csrf_token %}
+        <!-- Security token for cross-site request forgery protection -->
+
+        <!-- Django form fields rendered as paragraph elements -->
         {{ form.as_p }}
+
+        <!-- Submit button for the form -->
         <button type="submit" class="btn btn-secondary">Register</button>
     </form>
 </div>
-
 {% endblock %}

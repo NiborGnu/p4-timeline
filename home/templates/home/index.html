@@ -3,20 +3,29 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+<!-- Main container for authenticated users -->
 <div class="container text-center">
     <div class="row">
+        <!-- Title -->
         <h1>Timeline</h1>
+
+        <!-- Left Column: TimePosts -->
         <div class="col-8">
             {% for timepost in timeposts %}
             <div class="card mb-3">
-                <!-- If you want to add image later, uncomment below lines -->
+                <!-- Optional Post Image -->
                 {% if timepost.image %}
                 <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
                 {% endif %}
+
+                <!-- Post Content -->
                 <div class="card-body">
+                    <!-- Post View Mode -->
                     <div id="timepost-view-{{ timepost.id }}">
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
+
+                    <!-- Post Edit Mode -->
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
@@ -31,6 +40,8 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- Post Likes/Dislikes and Action Buttons -->
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-muted ether-side">
                             <small><a href="{% url 'like' timepost.id %}"><i
@@ -42,6 +53,8 @@
                         </li>
                         <li class="list-group-item text-muted ether-side">
                             <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
+
+                            <!-- Edit/Delete Options (for post owner or superuser) -->
                             {% if timepost.user == user or user.is_superuser %}
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal-{{ timepost.id }}">
@@ -51,11 +64,12 @@
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             {% endif %}
-                            <!-- Comment Indicator -->
+
+                            <!-- Comment Button -->
                             {% if timepost.comments.exists %}
                             <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
                                 onclick="toggleComments('{{ timepost.id }}')">
-                                <i class="fa-solid fa-comments"><small> {{ timepost.comments.count }}</small></i>
+                                <i class="fa-solid fa-comments"></i><small> {{ timepost.comments.count }}</small>
                             </button>
                             {% else %}
                             <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
@@ -68,7 +82,8 @@
                         </li>
                     </ul>
                 </div>
-                <!-- Comments Section -->
+
+                <!-- Comments Section (Toggled) -->
                 <div class="card-footer comment-section form-hidden" id="comments-section-{{ timepost.id }}">
                     <h5>Comments</h5>
                     <ul class="list-group">
@@ -77,21 +92,26 @@
                             {{ comment.body }}
                             <div>
                                 <br>
-                                <small class="text-muted">{{ comment.created_at|date:"H:i Y-m-d" }}
-                                    By: <a href="{% url 'profile' comment.user.id %}">
-                                        {{ comment.user.username }}</a></small>
+                                <small class="text-muted">{{ comment.created_at|date:"H:i Y-m-d" }} By:
+                                    <a href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}</a>
+                                </small>
+
+                                <!-- Edit/Delete Options for Comments (for comment owner or superuser) -->
                                 {% if comment.user == user or user.is_superuser %}
-                                <!-- Edit Button -->
+                                <!-- Edit Comment Modal Trigger -->
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editCommentModal-{{ comment.id }}">
                                     <i class="fa-regular fa-pen-to-square"></i> Edit
                                 </button>
-                                <!-- Delete Button -->
+
+                                <!-- Delete Comment Modal Trigger -->
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteCommentModal-{{ comment.id }}">
                                     <i class="fa-regular fa-trash-can"></i> Delete
                                 </button>
+                                {% endif %}
                             </div>
+
                             <!-- Edit Comment Modal -->
                             <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
                                 aria-labelledby="editCommentModalLabel" aria-hidden="true">
@@ -116,6 +136,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Delete Comment Modal -->
                             <div class="modal fade" id="deleteCommentModal-{{ comment.id }}" tabindex="-1"
                                 aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
@@ -140,12 +161,13 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                         </li>
                         {% empty %}
                         <li class="list-group-item">No comments yet.</li>
                         {% endfor %}
                     </ul>
+
+                    <!-- Add New Comment Form -->
                     <form method="POST" action="{% url 'add_comment' timepost.id %}">
                         {% csrf_token %}
                         <div class="form-group mt-3">
@@ -156,7 +178,8 @@
                     </form>
                 </div>
             </div>
-            <!-- Delete Confirmation Modal -->
+
+            <!-- Delete Post Confirmation Modal -->
             <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -180,6 +203,8 @@
             </div>
             {% endfor %}
         </div>
+
+        <!-- Right Column: New TimePost Form -->
         <div class="col-4">
             <form method="POST">
                 {% csrf_token %}
@@ -190,6 +215,7 @@
     </div>
 </div>
 {% else %}
+<!-- Message for unauthenticated users -->
 <div class="container text-center center-custom">
     <div class="row">
         <div>

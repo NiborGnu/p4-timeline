@@ -1,38 +1,52 @@
 {% load static %}
 {% with url_name=request.resolver_match.url_name %}
+
 <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-            <!-- Logo-->
+
+            <!-- Logo -->
             <a class="navbar-brand" href="{% url 'home' %}">Timeline</a>
+
+            <!-- Navbar Toggler (for mobile view) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Navbar Items -->
+
+            <!-- Navbar Content -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Home link -->
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'home' %}active{% endif %}" aria-current="page"
                             href="{% url 'home' %}">Home</a>
                     </li>
+
                     {% if user.is_authenticated %}
+                    <!-- My Profile link -->
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'profile' %}active{% endif %}"
                             href="{% url 'profile' request.user.id %}">My Profile</a>
                     </li>
+
+                    <!-- Users list link -->
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'users' %}active{% endif %}"
                             href="{% url 'users' %}">Users</a>
                     </li>
+
+                    <!-- Logout link -->
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'logout' %}active{% endif %}"
                             href="{% url 'logout' %}">Logout</a>
                     </li>
                 </ul>
                 {% else %}
+                <!-- Links for unauthenticated users (Login and Register) -->
                 <li class="nav-item">
                     <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
                 </li>
@@ -41,16 +55,19 @@
                         href="{% url 'register' %}">Register</a>
                 </li>
                 {% endif %}
+
                 {% if user.is_authenticated %}
-                <!-- Search -->
+                <!-- Search form -->
                 <form class="d-flex" role="search" method="get" action="{% url 'search' %}">
                     <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search"
                         value="{{ request.GET.q }}">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 {% endif %}
+
             </div>
         </div>
     </nav>
 </header>
+
 {% endwith %}

@@ -1,30 +1,35 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block content %}
+<!-- Check if the user is already authenticated -->
 {% if user.is_authenticated %}
+<!-- Message displayed if the user is already logged in -->
 <h1>You're Already Logged In!</h1>
 
 {% else %}
+<!-- Login form for unauthenticated users -->
 <div class="col-md-6 offset-md-3">
     <h1>Login</h1>
     <br>
+    <!-- Form to submit login details -->
     <form method="POST" action="{% url 'login' %}">
+        <!-- CSRF token for security -->
         {% csrf_token %}
 
+        <!-- Username input field -->
         <div class="mb-3">
-
             <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
-
         </div>
-        <div class="mb-3">
 
+        <!-- Password input field -->
+        <div class="mb-3">
             <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
         </div>
+
+        <!-- Submit button for the login form -->
         <br>
         <button type="submit" class="btn btn-secondary">Submit</button>
     </form>
-
 </div>
-
 {% endif %}
 {% endblock %}

@@ -1,19 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- Main container for search results -->
 <div class="container text-center">
+    <!-- Title -->
     <h1>Search Results</h1>
+
+    <!-- Display the search query -->
     <p>Results for: <br>
-        <strong>{{ query }}</strong></p> <!-- Display the search query -->
+        <strong>{{ query }}</strong> <!-- Bold display of the search query -->
+    </p>
+
+    <!-- Check if there are any search results -->
     {% if results %}
     <ul class="list-group">
+        <!-- Loop through each profile in the search results -->
         {% for profile in results %}
         <li class="list-group-item">
+            <!-- Link to the profile of the user found in the search results -->
             <a href="{% url 'profile' profile.user.id %}">{{ profile.user.username }}</a>
         </li>
         {% endfor %}
     </ul>
     {% else %}
+    <!-- Display a message if no users are found -->
     <p>No users found.</p>
     {% endif %}
 </div>

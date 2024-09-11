@@ -2,18 +2,24 @@
 {% load static %}
 
 {% block content %}
+<!-- Check if the profile exists -->
 {% if profile %}
 <div class="container text-center">
     <div class="row">
+        <!-- Profile Header -->
         <h1>{{ profile.user.username }}'s Profile</h1>
+
+        <!-- Profile Timeposts -->
         <div class="col-8">
             {% for timepost in timeposts %}
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
+                    <!-- Timepost View -->
                     <div id="timepost-view-{{ timepost.id }}">
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
-                    <!-- Hidden edit form -->
+
+                    <!-- Hidden Edit Form -->
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
@@ -28,6 +34,8 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- Timepost Actions -->
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-muted ether-side">
                             <small><a href="{% url 'like' timepost.id %}"><i
@@ -61,10 +69,11 @@
                             </button>
                             {% endif %}
                             <small>Made by <a
-                                    href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
+                                    href="{% url 'profile' timepost.user.id %}">{{ timepost.user.username }}</a></small>
                         </li>
                     </ul>
                 </div>
+
                 <!-- Comments Section -->
                 <div class="card-footer comment-section form-hidden" id="comments-section-{{ timepost.id }}">
                     <h5>Comments</h5>
@@ -74,20 +83,18 @@
                             {{ comment.body }}
                             <div>
                                 <br>
-                                <small class="text-muted">{{ comment.created_at|date:"H:i Y-m-d" }}
-                                    By: <a href="{% url 'profile' comment.user.id %}">
-                                        {{ comment.user.username }}</a></small>
+                                <small class="text-muted">{{ comment.created_at|date:"H:i Y-m-d" }} By: <a
+                                        href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}</a></small>
                                 {% if comment.user == user or user.is_superuser %}
-                                <!-- Edit Button -->
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editCommentModal-{{ comment.id }}">
                                     <i class="fa-regular fa-pen-to-square"></i> Edit
                                 </button>
-                                <!-- Delete Button -->
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteCommentModal-{{ comment.id }}">
                                     <i class="fa-regular fa-trash-can"></i> Delete
                                 </button>
+                                {% endif %}
                             </div>
                             <!-- Edit Comment Modal -->
                             <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
@@ -137,7 +144,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                         </li>
                         {% empty %}
                         <li class="list-group-item">No comments yet.</li>
@@ -153,7 +159,8 @@
                     </form>
                 </div>
             </div>
-            <!-- Delete Confirmation Modal -->
+
+            <!-- Delete Timepost Modal -->
             <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -177,7 +184,10 @@
             </div>
             {% endfor %}
         </div>
+
+        <!-- Sidebar with Follows and Followed By -->
         <div class="col-4">
+            <!-- Follows Card -->
             <div class="card mb-3">
                 <div class="card-header">
                     <strong>Follows</strong>
@@ -189,7 +199,7 @@
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
                         {% if user == profile.user %}
                         <a class="unfollow" href="{% url 'unfollow' following.user.id %}"><i
-                                class=" fa-solid fa-user-minus"></i></a>
+                                class="fa-solid fa-user-minus"></i></a>
                         {% endif %}
                         <br>
                         {% endif %}
@@ -200,6 +210,8 @@
                     <a href="{% url 'follows' profile.user.id %}">See All...</a>
                 </div>
             </div>
+
+            <!-- Followed By Card -->
             <div class="card mb-3">
                 <div class="card-header">
                     <strong>Followed By</strong>
@@ -211,12 +223,11 @@
                         <a href="{% url 'profile' following.user.id %}">{{ following }}</a>
                         {% if user == profile.user %}
                         {% if following not in user.profile.follow.all %}
-                        <a class="follow" href="{% url 'follow' following.user.id %}">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </a>
+                        <a class="follow" href="{% url 'follow' following.user.id %}"><i
+                                class="fa-solid fa-user-plus"></i></a>
                         {% else %}
                         <a class="unfollow" href="{% url 'unfollow' following.user.id %}"><i
-                                class=" fa-solid fa-user-minus"></i></a>
+                                class="fa-solid fa-user-minus"></i></a>
                         {% endif %}
                         {% endif %}
                         <br>
@@ -228,8 +239,9 @@
                     <a href="{% url 'followers' profile.user.id %}">See All...</a>
                 </div>
             </div>
-            {% if profile.user == user %}
-            {% else %}
+
+            <!-- Follow/Unfollow Button -->
+            {% if profile.user != user %}
             <form method="POST">
                 {% csrf_token %}
                 {% if profile in user.profile.follow.all %}
@@ -241,7 +253,8 @@
                 {% endif %}
             </form>
             {% endif %}
-            <br>
+
+            <!-- Update Profile Button -->
             {% if profile.user == user %}
             <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary">Update Profile</a>
             {% endif %}

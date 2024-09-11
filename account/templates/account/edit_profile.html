@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="col-md-6 offset-md-3">
+    <!-- Title -->
     <h1>Update User</h1>
     <br>
+
+    <!-- Form for updating the user profile -->
     <form method="POST" action="">
+        <!-- CSRF token for security -->
         {% csrf_token %}
+
+        <!-- Render the Django form fields -->
         {{ form.as_p }}
+
+        <!-- Submit button to update profile -->
         <button type="submit" class="btn btn-secondary">Update Profile</button>
     </form>
 </div>
-
 {% endblock %}

@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<!-- Centered container for the logout confirmation form -->
 <div class="d-flex justify-content-center text-center">
-    <form method=POST action="{% url 'logout' %}">
+    <!-- Form to confirm logout action -->
+    <form method="POST" action="{% url 'logout' %}">
+        <!-- Logout form title -->
         <h1>Logout</h1><br>
+        <!-- Security token for CSRF protection -->
         {% csrf_token %}
+        <!-- Confirmation prompt -->
         <p>Are you sure you want to logout? <br></p>
+        <!-- Yes button to confirm logout -->
         <button type="submit" name="logout-yes" value="Yes" class="btn btn-outline-success">Yes</button>
+        <!-- No button to cancel logout -->
         <button type="submit" name="logout-no" value="No" class="btn btn-outline-danger">No</button>
     </form>
 </div>
-
 {% endblock %}
