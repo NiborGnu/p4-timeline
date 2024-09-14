@@ -16,19 +16,23 @@
         <!-- CSRF token for security -->
         {% csrf_token %}
 
-        <!-- Username input field -->
+        <!-- Username input field with label -->
         <div class="mb-3">
-            <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username"
+                aria-required="true" aria-label="Enter Your Username">
         </div>
 
-        <!-- Password input field -->
+        <!-- Password input field with label -->
         <div class="mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Your Password"
+                aria-required="true" aria-label="Enter Your Password">
         </div>
 
-        <!-- Submit button for the login form -->
+        <!-- Submit button for the login form with descriptive text -->
         <br>
-        <button type="submit" class="btn btn-secondary">Submit</button>
+        <button type="submit" class="btn btn-secondary" aria-label="Submit login form">Submit</button>
     </form>
 </div>
 {% endif %}

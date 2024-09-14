@@ -7,15 +7,31 @@
     <br>
 
     <!-- Form for updating the user profile -->
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'edit_profile' %}">
         <!-- CSRF token for security -->
         {% csrf_token %}
+
+        <!-- Display form errors (if any) -->
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
         <!-- Render the Django form fields -->
         {{ form.as_p }}
 
         <!-- Submit button to update profile -->
-        <button type="submit" class="btn btn-secondary">Update Profile</button>
+        <button type="submit" class="btn btn-secondary timepost">Update Profile</button>
     </form>
 </div>
 {% endblock %}

@@ -11,10 +11,15 @@
         {% csrf_token %}
         <!-- Confirmation prompt -->
         <p>Are you sure you want to logout? <br></p>
-        <!-- Yes button to confirm logout -->
-        <button type="submit" name="logout-yes" value="Yes" class="btn btn-outline-success">Yes</button>
-        <!-- No button to cancel logout -->
-        <button type="submit" name="logout-no" value="No" class="btn btn-outline-danger">No</button>
+        <!-- Buttons with accessible names and clear labels -->
+        <div class="btn-group" role="group" aria-label="Logout Confirmation">
+            <!-- Yes button to confirm logout -->
+            <button type="submit" name="logout-action" value="Yes" class="btn btn-outline-success"
+                aria-label="Confirm logout">Yes</button>
+            <!-- No button to cancel logout -->
+            <button type="submit" name="logout-no" value="No" class="btn btn-outline-danger"
+                aria-label="Cancel logout">No</button>
+        </div>
     </form>
 </div>
 {% endblock %}
