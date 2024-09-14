@@ -15,9 +15,15 @@ function toggleEdit(id) {
 // Function to toggle comments section
 function toggleComments(id) {
     var commentsSection = document.getElementById('comments-section-' + id);
+    var toggleButton = document.getElementById('comment-toggle-' + id);
+
     if (commentsSection.style.display === 'none' || commentsSection.style.display === '') {
         commentsSection.style.display = 'block'; // Show comments section
+        toggleButton.innerHTML = '<i class="fa-solid fa-comments"></i> Hide Comments'; // Change to "Hide Comments"
     } else {
         commentsSection.style.display = 'none'; // Hide comments section
+        // Update the button back to show comment count if there are comments
+        var commentCount = toggleButton.getAttribute('data-comment-count');
+        toggleButton.innerHTML = '<i class="fa-solid fa-comments"></i> <small>' + commentCount + '</small>';
     }
 }
