@@ -13,11 +13,6 @@
         <div class="col-8">
             {% for timepost in timeposts %}
             <div class="card mb-3">
-                <!-- Optional Post Image -->
-                {% if timepost.image %}
-                <img src="{{ timepost.image.url }}" class="card-img-top" alt="Post image">
-                {% endif %}
-
                 <!-- Post Content -->
                 <div class="card-body">
                     <!-- Post View Mode -->
