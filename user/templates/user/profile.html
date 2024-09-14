@@ -13,13 +13,14 @@
         <div class="col-8">
             {% for timepost in timeposts %}
             <div class="card mb-3">
+                <!-- Post Content -->
                 <div class="card-body">
-                    <!-- Timepost View -->
+                    <!-- Post View Mode -->
                     <div id="timepost-view-{{ timepost.id }}">
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
 
-                    <!-- Hidden Edit Form -->
+                    <!-- Post Edit Mode -->
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
@@ -35,43 +36,50 @@
                         </form>
                     </div>
 
-                    <!-- Timepost Actions -->
+                    <!-- Post Likes/Dislikes and Action Buttons -->
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-muted ether-side">
                             <small><a href="{% url 'like' timepost.id %}"><i
                                         class="fa-solid fa-thumbs-up fa-xl"></i></a>
                                 {{ timepost.number_of_likes }}</small>
+                            <!-- Comment Button -->
+                            {% if timepost.comments.exists %}
+                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
+                                data-comment-count="{{ timepost.comments.count }}"
+                                onclick="toggleComments('{{ timepost.id }}')">
+                                <i class="fa-solid fa-comments"></i> <small>{{ timepost.comments.count }}</small>
+                            </button>
+                            {% else %}
+                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
+                                data-comment-count="0" onclick="toggleComments('{{ timepost.id }}')">
+                                <i class="fa-solid fa-comments"></i>
+                            </button>
+                            {% endif %}
                             <small><a href="{% url 'dislike' timepost.id %}"><i
                                         class="fa-solid fa-thumbs-down fa-xl"></i></a>
                                 {{ timepost.number_of_dislikes }}</small>
                         </li>
-                        <li class="list-group-item text-muted ether-side">
-                            <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
-                            {% if timepost.user == user or user.is_superuser %}
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal-{{ timepost.id }}">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                            <button class="btn btn-warning btn-sm" onclick="toggleEdit('{{ timepost.id }}')">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            {% endif %}
-                            <!-- Comment Indicator -->
-                            {% if timepost.comments.exists %}
-                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
-                                onclick="toggleComments('{{ timepost.id }}')">
-                                <i class="fa-solid fa-comments"><small> {{ timepost.comments.count }}</small></i>
-                            </button>
-                            {% else %}
-                            <button class="btn btn-info btn-sm" id="comment-toggle-{{ timepost.id }}"
-                                onclick="toggleComments('{{ timepost.id }}')">
-                                <i class="fa-solid fa-comments"></i>
-                            </button>
-                            {% endif %}
-                            <small>Made by <a
-                                    href="{% url 'profile' timepost.user.id %}">{{ timepost.user.username }}</a></small>
-                        </li>
-                    </ul>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-muted ether-side">
+                                <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
+
+                                <small>Made by <a
+                                        href="{% url 'profile' timepost.user.id %}">{{ timepost.user }}</a></small>
+                            </li>
+                            <li class="list-group-item text-muted ether-side">
+                                <!-- Edit/Delete Options (for post owner or superuser) -->
+                                {% if timepost.user == user or user.is_superuser %}
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal-{{ timepost.id }}">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="btn btn-warning btn-sm" onclick="toggleEdit('{{ timepost.id }}')">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                {% endif %}
+                            </li>
+                        </ul>
                 </div>
 
                 <!-- Comments Section -->
@@ -88,12 +96,10 @@
                                 {% if comment.user == user or user.is_superuser %}
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editCommentModal-{{ comment.id }}">
-                                    <i class="fa-regular fa-pen-to-square"></i> Edit
-                                </button>
+                                    <i class="fa-regular fa-pen-to-square"></i></button>
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteCommentModal-{{ comment.id }}">
-                                    <i class="fa-regular fa-trash-can"></i> Delete
-                                </button>
+                                    <i class="fa-regular fa-trash-can"></i></button>
                                 {% endif %}
                             </div>
                             <!-- Edit Comment Modal -->
