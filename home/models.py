@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 # Create TimePost model
 class TimePost(models.Model):
     # Link the TimePost to the user who created it
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # Body of the TimePost, limited to 400 characters
     body = models.CharField(max_length=400)
     # Timestamp for when the TimePost was created
@@ -31,9 +31,6 @@ class TimePost(models.Model):
     # Returns the total number of dislikes for the TimePost
     def number_of_dislikes(self):
         return self.dislikes.count()
-
-    # TODO: Add an image to a post (Install Pillow!)
-    # image = models.ImageField(upload_to='images/', blank=True, null=True)
 
 
 class Comment(models.Model):
