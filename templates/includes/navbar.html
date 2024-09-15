@@ -18,7 +18,7 @@
 
             <!-- Navbar Content -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ma-auto mb-2 mb-lg-0">
 
                     <!-- Home link -->
                     <li class="nav-item">
@@ -44,20 +44,21 @@
                         <a class="nav-link {% if url_name == 'logout' %}active{% endif %}"
                             href="{% url 'logout' %}">Logout</a>
                     </li>
-                </ul> <!-- Closing the ul tag here -->
-                {% else %}
-                <!-- Links for unauthenticated users (Login and Register) -->
-                <ul class="navbar-nav ms-auto">
+
+                    {% else %}
+                    <!-- Links for unauthenticated users (Login and Register) -->
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'login' %}active{% endif %}"
                             href="{% url 'login' %}">Login</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link {% if url_name == 'register' %}active{% endif %}"
                             href="{% url 'register' %}">Register</a>
                     </li>
-                </ul>
-                {% endif %}
+
+                    {% endif %}
+                </ul> <!-- Closing the ul tag here -->
 
                 {% if user.is_authenticated %}
                 <!-- Search form -->
