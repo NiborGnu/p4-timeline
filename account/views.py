@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
+from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 
@@ -20,6 +21,7 @@ def login_user(request):
     return render(request, 'account/login.html')
 
 @login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout_user(request):
     if request.method == 'POST':
         if 'logout-no' in request.POST:
@@ -28,7 +30,12 @@ def logout_user(request):
         else:
             logout(request)
             messages.success(request, 'You have been logged out. Hope to see you soon!')
-            return redirect('home')
+            response = redirect('home')
+            # Set additional cache control headers if needed
+            response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
     return render(request, 'account/logout.html')
 
 def register_user(request):
