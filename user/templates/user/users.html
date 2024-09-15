@@ -6,36 +6,43 @@
 
 <!-- Check if there are any users -->
 {% if users %}
-{% for profile in users %}
-<div class="container text-center col-md-6">
-    <div class="card mb-3">
-        <div class="row">
-            <!-- Profile Picture -->
-            <div class="col-md-4">
-                <img src="
+<div class="container">
+    <div class="row justify-content-center">
+        {% for profile in users %}
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+                <div class="row g-0">
+                    <!-- Profile Picture -->
+                    <div class="col-md-4">
+                        <img src="
                         {% if profile.profile_pic %}
                             {{ profile.profile_pic.url }}
                         {% else %}
                             {% static 'images/default_profile_pic.svg' %}
                         {% endif %}" class="img-fluid rounded-start"
-                    alt="Picture of {{ profile.user.username }} or a default picture">
-            </div>
-            <!-- User Details -->
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">Username: {{ profile.user.username }}</h5>
-                    <p class="card-text">
-                        Link: <a href="{% url 'profile' profile.user.id %}">{{ profile.user.username }}</a>
-                    </p>
-                    <p class="card-text">
-                        <small class="text-muted">Last Updated: {{ profile.date_modified }}</small>
-                    </p>
+                            alt="Profile picture of {{ profile.user.username }}"
+                            aria-label="Profile picture of {{ profile.user.username }}">
+                    </div>
+                    <!-- User Details -->
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Username: {{ profile.user.username }}</h5>
+                            <p class="card-text">
+                                Profile Link: <a href="{% url 'profile' profile.user.id %}"
+                                    aria-label="View profile of {{ profile.user.username }}">{{ profile.user.username }}</a>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Last Updated:
+                                    {{ profile.date_modified|date:"Y-m-d H:i" }}</small>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% else %}
 <h1 class="text-center">No profiles found</h1>
 {% endif %}

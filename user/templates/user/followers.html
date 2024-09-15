@@ -8,41 +8,47 @@
 
 <!-- Check if there are any followers -->
 {% if followers %}
-<!-- Loop through each follower in the followers list -->
-{% for follower in followers %}
-<div class="container text-center col-md-6">
-    <div class="card mb-3">
-        <div class="row">
-            <!-- Display the follower's profile picture or a default image if none exists -->
-            <div class="col-md-4">
-                <img src="
-                        {% if follower.profile_pic %}{{ follower.profile_pic.url }}
-                        {% else %}{% static 'images/default_profile_pic.svg' %}
-                        {% endif %}" class="img-fluid rounded-start" alt="Picture of user or a default picture">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <!-- Display follower's username -->
-                    <h5 class="card-title">Username: {{ follower.user.username }}</h5>
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- Loop through each follower in the followers list -->
+        {% for follower in followers %}
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+                <div class="row g-0">
+                    <!-- Display the follower's profile picture or a default image if none exists -->
+                    <div class="col-md-4">
+                        <img src="{% if follower.profile_pic %}{{ follower.profile_pic.url }}{% else %}{% static 'images/default_profile_pic.svg' %}{% endif %}"
+                            class="img-fluid rounded-start" alt="Profile picture of {{ follower.user.username }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <!-- Display follower's username -->
+                            <h5 class="card-title">Username: {{ follower.user.username }}</h5>
 
-                    <!-- Link to the follower's profile -->
-                    <p class="card-text">Link:
-                        <a href="{% url 'profile' follower.user.id %}">{{ follower.user.username }}</a>
-                    </p>
+                            <!-- Link to the follower's profile -->
+                            <p class="card-text">Profile Link:
+                                <a href="{% url 'profile' follower.user.id %}"
+                                    aria-label="View profile of {{ follower.user.username }}">
+                                    {{ follower.user.username }}
+                                </a>
+                            </p>
 
-                    <!-- Show when the profile was last updated -->
-                    <p class="card-text">
-                        <small class="text-muted">Last Updated: {{ follower.date_modified }}</small>
-                    </p>
+                            <!-- Show when the profile was last updated -->
+                            <p class="card-text">
+                                <small class="text-muted">Last Updated:
+                                    {{ follower.date_modified|date:"Y-m-d H:i" }}</small>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% else %}
 <!-- If there are no followers, display a message -->
-<h1>No followers found</h1>
+<h2 class="text-center">You don't have any followers yet.</h2>
 {% endif %}
 
 {% endblock %}
