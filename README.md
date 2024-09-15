@@ -537,3 +537,103 @@ These stories involve:
 - **Complexity**: They involve multiple interconnected features and functionalities, likely requiring more development effort than a single user story.
 - **Scope**: They represent broader user goals rather than specific, isolated actions.
 
+## The Scope Plane
+
+- **Management:**
+  - **Superuser**: Can edit and delete all comments, Timeposts. Can delete users from webpage.
+
+- **User Authentication and Management:**
+  - **Register**: New users can sign up for an account.
+  - **Login/Logout**: Users can log into and out of their accounts.
+
+- **User Profiles:**
+  - **View Profile**: Users can view their own and other users' profiles.
+  - **Edit Profile**: Users can edit their own posts and profile information.
+
+- **Post Interaction:**
+  - **Create Post**: Users can create new posts.
+  - **Edit/Delete Post**: Users can edit or delete their own posts.
+  - **Like/Dislike Post**: Users can express opinions on posts through likes or dislikes.
+
+- **Comment Management:**
+  - **Add/Edit/Delete Comment**: Users can add, edit, or delete comments on posts.
+
+- **Timeline and Content Viewing:**
+  - **View Timeline**: Users can view a timeline of posts from users they follow.
+  - **View Timeline Without Login**: Unauthenticated users are shown a welcome message prompting them to log in or register.
+
+- **User Interaction:**
+  - **Follow/Unfollow Users**: Users can follow or unfollow other users to manage their feed.
+
+## The Structure Plane
+
+### Features
+
+## Social Media Webpage
+
+The application provides a platform for users to interact through posts, comments, and likes. It enables users to view profiles, manage content, and engage with other users' posts.
+
+### User-Friendly Interface
+
+The design focuses on intuitive navigation and clear presentation of content, ensuring a seamless user experience. User interaction elements such as buttons and forms are straightforward and accessible.
+
+### Responsive Design
+
+Utilizes a responsive design framework to ensure the platform is usable and visually consistent across different devices and screen sizes, adapting seamlessly to both desktop and mobile interfaces.
+
+### Template-Specific Features
+
+#### index.html
+
+- **Homepage/Landing Page NOT LOGGED IN**: You see the prompt to log in or register
+
+![index.html](documentation/pages/not-logged-in-home-page.png)
+
+- **Homepage/Landing Page LOGGED IN**: Serves as the main entry point with essential information and calls to action.
+- **Hero Section**: Features a prominent section for welcoming users and highlighting key actions.
+- **User Engagement**: Provides easy access to main features such as viewing profiles and managing followers/follows.
+- **Introduction and Navigation**: Briefly introduces the platform and offers navigational links to other pages.
+![index.html](documentation/pages/logged-in-home-page.png)
+
+
+#### followers.html
+
+- **Displays User Followers**: Lists all followers with profile pictures, usernames, and links to their profiles.
+- **No Followers Message**: Shows a message when there are no followers.
+
+![followers.html](documentation/pages/followed-by.png)
+
+#### follows.html
+
+- **Displays User Follows**: Lists all users the current user follows, including profile pictures, usernames, and links to their profiles.
+- **No Following Message**: Displays a message when no users are followed.
+
+![follows.html](documentation/pages/followers.png)
+
+#### profile.html
+
+- **Profile Display**: Shows user profile details including timeposts, followers and following.
+- **Timepost Interaction**: Includes options to edit, delete, and comment on timeposts, with modals for editing and deleting comments.
+- **Follow/Unfollow Button**: Allows users to follow or unfollow the profile as needed.
+- **Profile Management**: Provides options for updating profile information and viewing detailed follow/followed by lists.
+
+![profile.html](documentation/pages/my-profile.png)
+
+#### users.html
+
+- **Displays All Users**: Lists all user profiles with profile pictures, usernames, and links to their individual profiles.
+- **No Users Message**: Displays a message when no profiles are found.
+
+![users.html](documentation/pages/users.png)
+
+### Overall Observations
+
+- **Consistent Design**: Utilizes Bootstrap for a clean and organized presentation of user-related information. Combined with css and JavaScript.
+- **User-Friendly Navigation**: Provides clear navigation paths and interaction options for managing user profiles and timeposts.
+- **Accessibility**: Ensures a user-friendly experience with clear messages and well-structured content.
+
+
+### Features Left to Implement (Optional)
+
+- Profile Picture, contact page for queries. User confirmation 
+
