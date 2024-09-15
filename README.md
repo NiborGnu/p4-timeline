@@ -761,24 +761,26 @@ Entity relationship diagram was created using [DBVisualizer](https://www.dbvis.c
 
 ## Technologies
 
-- **Python**
-  - The primary programming language used for the Django backend.
-- **Django**
-  - The high-level web framework that powers the application's structure and logic.
 - **HTML**
   - The markup language used to structure the web pages.
 - **CSS**
   - The styling language for defining the visual appearance of the web pages.
+- **JavaScript**
+  - The programming language used to create interactive elements and dynamic content on the web pages.
+- **Python**
+  - The primary programming language used for the Django backend.
+- **Django**
+  - The high-level web framework that powers the application's structure and logic.
 - **Bootstrap**
   - The CSS framework offering pre-designed components and a responsive grid system for layout.
 - **Visual Studio Code**
-  - The website was developed using Visual Studio Code IDE
+  - The website was developed using Visual Studio Code IDE.
 - **GitHub**
-  - Source code is hosted on GitHub
+  - Source code is hosted on GitHub.
 - **Git**
-  - Used to commit and push code during the development of the Website
+  - Used to commit and push code during the development of the Website.
 - **Font Awesome**
-  - This was used for various icons throughout the site
+  - This was used for various icons throughout the site.
 - **Favicon.io**
   - favicon files were created at https://favicon.io/favicon-converter/
 - **balsamiq**
