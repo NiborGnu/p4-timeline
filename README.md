@@ -637,3 +637,228 @@ Utilizes a responsive design framework to ensure the platform is usable and visu
 
 - Profile Picture, contact page for queries. User confirmation 
 
+## The Skeleton Plane
+
+### Wireframes
+
+![Homepage](documentation/wireframe/not-logged-in-home.png)
+
+![Loged in Homepage](documentation/wireframe/loged-in-home-page.png)
+
+![Navbar](documentation/wireframe/navbar.png)
+
+![Footer](documentation/wireframe/footer.png)
+
+![My_Profile](documentation/wireframe/my-profile.png)
+
+![Users](documentation/wireframe/users.png)
+
+![Follows](documentation/wireframe/follows.png)
+
+![Followed by](documentation/wireframe/followed-by.png)
+
+![Logout](documentation/wireframe/logout.png)
+
+![Login](documentation/wireframe/login.png)
+
+![Register](documentation/wireframe/register.png)
+
+### Database Design
+
+Entity relationship diagram was created using [DBVisualizer](https://www.dbvis.com/) and shows the schemas for each of the models and how they are related.
+
+![ERD](documentation/p4-timeline-ERD.svg)
+
+## Security
+
+### 1. **Authentication (`@login_required` AND `request.user.is_authenticated`)**
+
+- **Description**: The `@login_required` and `request.user.is_authenticated` decorator/if ensures that only authenticated users can access certain views, such as viewing user profiles, following/unfollowing users, and accessing followers and follows lists.
+- **Purpose**: Protects sensitive actions and data from unauthorized users by redirecting them to the login page if they are not authenticated.
+
+### 2. **Permission Checks**
+
+- **Description**: Checks ensure that users can only access their own followers and follows pages. For instance, users are redirected if they attempt to view someone else's followers or follows page.
+- **Purpose**: Prevents users from accessing or modifying data related to other users, safeguarding personal information.
+
+### 3. **Form Validation**
+
+- **Description**: Form submissions for actions like following or unfollowing other users are validated. This ensures that the actions performed are legitimate and intended by the user.
+- **Purpose**: Prevents invalid or unauthorized actions from being processed, protecting the integrity of user interactions.
+
+### 4. **Error Handling**
+
+- **Description**: Error handling is implemented to manage cases where requested profiles or data do not exist. For example, using `get_object_or_404()` ensures that if a profile does not exist, a 404 error is raised.
+- **Purpose**: Provides user-friendly feedback and prevents system errors or crashes when dealing with non-existent objects.
+
+### 5. **Database Access Protection**
+
+- **Description**: `get_object_or_404()` is used to ensure that the requested profile or other data exists before performing any operations.
+- **Purpose**: Prevents errors and unauthorized access by ensuring that users interact with valid data.
+
+### 6. **Input Filtering**
+
+- **Description**: Queries are used to filter user data, such as excluding the current user from the list of users that can be followed, or filtering timeposts by the current user.
+- **Purpose**: Ensures that users are only shown relevant data and interactions, preventing actions like following oneself or accessing irrelevant posts.
+
+### 7. **Redirection After Actions**
+
+- **Description**: After performing actions like following or unfollowing a user, users are redirected to the profile page or relevant section.
+- **Purpose**: Guides users smoothly to the appropriate page after an action, enhancing user experience.
+
+
+## The Surface Plane
+
+### Design
+
+- **Overview**: The design of this webpage prioritizes a clean and inviting aesthetic to enhance user experience. A clear layout with distinct sections ensures easy navigation and access to information. Prominently displayed call-to-action buttons encourage users to explore the menu and post a TimePost.
+
+### Color Scheme
+
+- **Primary Colors**:
+  - **Darkgray**: `#a9a9a9` - Used for the navigation bar and footer, establishing a formal, authoritative presence that grounds the layout. Conveys a classic, respectful tone while providing a serious, gothic elegance to key structural elements.
+  - **Black**: `#000000` - Used for text, offering sharp contrast for maximum readability and clarity. Conveys authority, formality, and modern sophistication.
+  - **White**: `#ffffff` - Used for the background, providing a clean, open space that enhances readability and allows other elements to stand out with clarity and simplicity.
+
+### Typography
+
+- HTML
+  - The structure of the Website was developed using HTML as the main language.
+- CSS
+  - The Website was styled using custom CSS in an external file.
+- Python
+  - Python was the main programming language used for the application using the Django Framework.
+- JavaScript
+  - JavaScript was used to enhance the interactivity and functionality of the Website, handling client-side scripting and dynamic content.
+- Visual Studio Code
+  - The website was developed using Visual Studio Code IDE
+- GitHub
+  - Source code is hosted on GitHub
+- Git
+  - Used to commit and push code during the development of the Website
+- Font Awesome
+  - This was used for various icons throughout the site
+- Favicon.io
+  - favicon files were created at https://favicon.io/favicon-converter/
+- balsamiq
+  - wireframes were created using balsamiq from https://balsamiq.com/wireframes/desktop/#
+
+## Python Modules Used
+
+- Django function-based views (ListView, UpdateView, DeleteView, CreateView) - Used for the classes to create, read, update and delete.
+- messages - Used to pass messages to display feedback to the user upon actions
+
+## External Python Modules
+
+- asgiref==3.8.1
+- Django==5.1
+- gunicorn==20.1.0
+- psycopg2==2.9.9
+- sqlparse==0.5.1
+- whitenoise==6.7.0
+
+
+## Technologies
+
+- **Python**
+  - The primary programming language used for the Django backend.
+- **Django**
+  - The high-level web framework that powers the application's structure and logic.
+- **HTML**
+  - The markup language used to structure the web pages.
+- **CSS**
+  - The styling language for defining the visual appearance of the web pages.
+- **Bootstrap**
+  - The CSS framework offering pre-designed components and a responsive grid system for layout.
+- **Visual Studio Code**
+  - The website was developed using Visual Studio Code IDE
+- **GitHub**
+  - Source code is hosted on GitHub
+- **Git**
+  - Used to commit and push code during the development of the Website
+- **Font Awesome**
+  - This was used for various icons throughout the site
+- **Favicon.io**
+  - favicon files were created at https://favicon.io/favicon-converter/
+- **balsamiq**
+  - wireframes were created using balsamiq from https://balsamiq.com/wireframes/desktop/#
+
+## Testing
+
+Test cases and results can be found in the [TESTING.md](TESTING.md) file. This was moved due to the size of the file.
+
+## Deployment
+
+### Version Control
+
+The site was created using the Visual Studio Code editor and pushed to github to the remote repository.
+
+The following git commands were used throughout development to push code to the remote repo:
+
+```git add <file>``` - This command was used to add the file(s) to the staging area before they are committed.
+
+```git commit -m “commit message”``` - This command was used to commit changes to the local repository queue ready for the final step.
+
+```git push``` - This command was used to push all committed code to the remote repository on github.
+
+### Deployment Instructions
+
+### Database Creation
+
+Made a postgresql database. And connected it.
+
+### Heroku Deployment
+
+The site was deployed to Heroku. The steps to deploy are as follows:
+
+- Navigate to heroku and create an account
+- Click the new button in the top right corner
+- Select create new app
+- Enter app name
+- Select region and click create app
+- Click the resources tab and search for Heroku Postgres
+- Select hobby dev and continue
+- Go to the settings tab and then click reveal config vars
+- Add the following config vars:
+  - SECRET_KEY: (Your secret key)
+  - DATABASE: (Look at database creation)
+      - NAME
+      - USER
+      - PASSWORD
+      - HOST
+- Click the deploy tab
+- Scroll down to Connect to GitHub and sign in / authorize when prompted
+- In the search box, find the repositoy you want to deploy and click connect
+- Scroll down to Manual deploy and choose the main branch
+- Click deploy
+
+### Run Locally
+
+Navigate to the GitHub ([p4-Timeline](https://github.com/NiborGnu/p4-timeline)):
+
+- Click on the code drop down button
+- Click on HTTPS
+- Copy the repository link to the clipboard
+- Open your IDE of choice (git must be installed for the next steps)
+- Type git clone copied-git-url into the IDE terminal
+
+The project will now have been cloned on your local machine for use.
+
+### Forking the Project
+
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+
+- Navigate to the GitHub ([p4-Timeline](https://github.com/NiborGnu/p4-timeline)).
+
+- On the top right of the page under the header, click the fork button.
+
+- This will create a duplicate of the full project in your GitHub Repository.
+
+## Credits
+
+- Google.
+- Family and friends for testing and input.
+
++ #### Inspiration
+  * [Code Institute](https://codeinstitute.net/se/) - For the training and classes in all the basics of HTML, CSS, JAVASCRIPT, PYTHON and more!
+  * [Fontawesome](https://fontawesome.com/search?q=more&o=r&m=free) - For the nice Icons I have been using that they have
