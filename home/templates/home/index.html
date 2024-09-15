@@ -153,11 +153,12 @@
 
                             <!-- Delete Comment -->
                             <div class="modal fade" id="deleteCommentModal-{{ comment.id }}" tabindex="-1"
-                                aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                aria-labelledby="deleteCommentModalLabel-{{ comment.id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteCommentModalLabel">Confirm Deletion</h5>
+                                            <h5 class="modal-title" id="deleteCommentModalLabel-{{ comment.id }}">
+                                                Confirm Deletion</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -195,12 +196,12 @@
             </div>
 
             <!-- Delete Timepost -->
-            <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel-{{ timepost.id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                            <h5 class="modal-title" id="deleteModalLabel-{{ timepost.id }}">Confirm Deletion</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -236,10 +237,8 @@
         <div>
             <h1>Welcome!</h1>
             <p>Sign up or login to get started TimePosting and following!</p>
-            <a href="{% url 'register' %}"><button type="button" class="btn btn-secondary"
-                    aria-label="Register">Register</button></a>
-            <a href="{% url 'login' %}"><button type="button" class="btn btn-secondary"
-                    aria-label="Login">Login</button></a>
+            <a href="{% url 'register' %}" class="btn btn-secondary" aria-label="Register">Register</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary" aria-label="Login">Login</a>
         </div>
     </div>
 </div>
