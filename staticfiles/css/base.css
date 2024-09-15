@@ -169,3 +169,37 @@ footer {
 .yt-icon:hover {
     color: white;
 }
+
+/* Ensure the TimePost form and posts have the same width on small screens */
+@media (max-width: 785px) {
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+        width: 100%;
+    }
+
+    .above {
+        order: -1;
+    }
+
+    .below {
+        order: 0;
+    }
+}
+
+/* Ensure there are no conflicts with existing column sizes */
+@media (min-width: 786px) {
+    .col-md-8 {
+        width: 66.6667%;
+        /* Adjust as needed based on your layout */
+    }
+
+    .col-md-4 {
+        width: 33.3333%;
+        /* Adjust as needed based on your layout */
+    }
+}
