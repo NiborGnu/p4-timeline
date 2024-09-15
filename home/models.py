@@ -13,15 +13,19 @@ class TimePost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # Many-to-Many field for users who liked the TimePost
     likes = models.ManyToManyField(
-        User, 
-        related_name='liked_posts',  # Reverse relation for the User's liked posts
-        blank=True  # Allows the likes field to be empty initially
+        User,
+        # Reverse relation for the User's liked posts
+        related_name='liked_posts',
+        # Allows the likes field to be empty initially
+        blank=True
     )
     # Many-to-Many field for users who disliked the TimePost
     dislikes = models.ManyToManyField(
-        User, 
-        related_name='disliked_posts',  # Reverse relation for the User's disliked posts
-        blank=True  # Allows the dislikes field to be empty initially
+        User,
+        # Reverse relation for the User's disliked posts
+        related_name='disliked_posts',
+        # Allows the dislikes field to be empty initially
+        blank=True
     )
 
     # Returns the total number of likes for the TimePost
@@ -35,6 +39,8 @@ class TimePost(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timepost = models.ForeignKey(TimePost, related_name='comments', on_delete=models.CASCADE)
+    timepost = models.ForeignKey(
+        TimePost, related_name='comments', on_delete=models.CASCADE
+        )
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -7,9 +7,11 @@ from user.models import Profile
 # Unregister the default Group
 admin.site.unregister(Group)
 
+
 # Put Profile in User Model
 class ProfileInline(admin.StackedInline):
     model = Profile
+
 
 # User Model
 class UserAdmin(admin.ModelAdmin):
@@ -18,11 +20,14 @@ class UserAdmin(admin.ModelAdmin):
     fields = ['username']
     inlines = [ProfileInline]
 
+
 # Unregister the default User
 admin.site.unregister(User)
 
+
 # Register the new User
 admin.site.register(User, UserAdmin)
+
 
 # Register TimePost
 admin.site.register(TimePost)

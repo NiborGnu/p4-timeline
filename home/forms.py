@@ -1,6 +1,7 @@
 from django import forms
 from .models import TimePost, Comment
 
+
 class TimePostForm(forms.ModelForm):
     body = forms.CharField(
         required=True,
@@ -10,10 +11,8 @@ class TimePostForm(forms.ModelForm):
                 'class': 'form-control',
             }
         ),
-            label="",
+        label="",
     )
-
-    # TODO: Add a image field to the form
 
     class Meta:
         model = TimePost

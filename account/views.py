@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 
+
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -20,6 +21,7 @@ def login_user(request):
             return redirect('login')
     return render(request, 'account/login.html')
 
+
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout_user(request):
@@ -29,7 +31,9 @@ def logout_user(request):
             return redirect('home')
         else:
             logout(request)
-            messages.success(request, 'You have been logged out. Hope to see you soon!')
+            messages.success(
+                request, 'You have been logged out. Hope to see you soon!'
+                )
             response = redirect('home')
             # Set additional cache control headers if needed
             response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
@@ -37,6 +41,7 @@ def logout_user(request):
             response['Expires'] = '0'
             return response
     return render(request, 'account/logout.html')
+
 
 def register_user(request):
     form = SignUpForm()
@@ -49,9 +54,12 @@ def register_user(request):
             # Log in the user
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, "You have successfully registered! Welcome!")
+            messages.success(
+                request, "You have successfully registered! Welcome!"
+                )
             return redirect('home')
     return render(request, "account/register.html", {'form': form})
+
 
 @login_required
 def update_user(request):
@@ -60,7 +68,8 @@ def update_user(request):
     form = SignUpForm(request.POST or None, instance=current_user)
     if form.is_valid():
         form.save()
-        login(request, current_user)  # Re-login the user to update session details
+        # Re-login the user to update session details
+        login(request, current_user)
         messages.success(request, 'Your profile was updated successfully')
         return redirect('home')
     return render(request, 'account/edit_profile.html', {'form': form})

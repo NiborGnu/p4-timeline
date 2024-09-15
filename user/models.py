@@ -8,22 +8,25 @@ from django.dispatch import receiver
 class Profile(models.Model):
     # Link each Profile to a single User using a One-to-One relationship
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    
+
     # A Profile can follow multiple other Profiles
     follow = models.ManyToManyField(
         'self',  # Self-referential relationship
         related_name='followed_by',  # Reverse relation for followers
-        symmetrical=False,  # Ensures it's a one-way follow (not auto-follow back)
+        # Ensures it's a one-way follow (not auto-follow back)
+        symmetrical=False,
         blank=True  # Allows the follow field to be empty initially
     )
-    
+
     # Automatically updated timestamp for when the profile was last modified
     date_modified = models.DateTimeField(auto_now=True)
     bio = models.TextField(blank=True, null=True)
 
     # Return the username when the Profile is represented as a string
     def __str__(self):
+
         return self.user.username
+
 
 # Signal to create a Profile when a new User is created
 @receiver(post_save, sender=User)
