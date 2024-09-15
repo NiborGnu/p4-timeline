@@ -157,3 +157,5 @@ Iphone 13
 IPhone 15
 
 ## Bugs
+
+- Some small bugs with bad placement of closing tags and spelling mistake but no big bugs incontered.
