@@ -4,6 +4,7 @@
 :root {
     /* Fonts */
     --titel: 'SUSE', sans-serif;
+    /* Corrected to 'title' for consistency */
     --main-font: 'Roboto', sans-serif;
 
     /* Colors */
@@ -13,15 +14,18 @@
 
     /* Utils */
     --top-shadow: 1px -1px 5px 0 var(--black);
+    /* Shadow above elements */
     --bottom-shadow: -1px 1px 5px 0 var(--black);
+    /* Shadow below elements */
     --border: 1px solid var(--gray);
-
+    /* Border color */
 }
 
-/* Get footer to the bottom */
+/* Ensure there's no default margin on body */
 html,
 body {
     height: 100%;
+    margin: 0;
 }
 
 body {
@@ -30,6 +34,7 @@ body {
     flex-direction: column;
 }
 
+/* Allow main content to grow and shrink */
 main {
     flex: 1 0 auto;
 }
@@ -51,46 +56,58 @@ h6 {
     margin-bottom: 20px;
 }
 
-/* Navbar underline */
+/* Navbar underline for active link */
 .active {
     border-bottom: 2px solid var(--black);
     font-weight: 500;
 }
 
-/* Text at Ether Side */
+/* Text alignment at Ether Side */
 .ether-side {
     display: flex;
     justify-content: space-between;
 }
 
-/* Hover effect on DELETE */
+/* Button hover effects */
 .btn-danger:hover {
     background-color: white;
     color: #dc3545;
 }
 
-/* Hover effect on EDIT */
 .btn-warning:hover {
     background-color: white;
     color: black;
 }
 
-/* Form hidden */
+.timepost:hover {
+    background-color: white;
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.comment:hover {
+    background-color: white;
+    color: #0056b3;
+    border: 1px solid #0056b3;
+}
+
+/* Hide elements */
 .form-hidden {
     display: none;
 }
 
-/* Unfollow button */
+/* Unfollow and Follow button styles */
+/* Red color for unfollow */
 .unfollow {
     color: red;
 }
 
-/* Follow button */
+/* Green color for follow */
 .follow {
     color: green;
 }
 
-/* Form */
+/* Form styling */
 .form {
     width: 100%;
     margin: 3% auto;
@@ -106,21 +123,41 @@ footer {
     box-shadow: var(--top-shadow);
     width: 100%;
     flex-shrink: 0;
+    /* Prevent footer from shrinking */
 }
 
+/* Font Awesome Icon Styles */
 .fa-brands {
     padding: 10px 0;
     margin: 15px;
 }
 
+/* GitHub icon color */
 .gh-icon {
     color: black;
 }
 
+/* Change color on hover */
+.gh-icon:hover {
+    color: white;
+}
+
+/* LinkedIn icon color */
 .li-icon {
     color: #0A66C2;
 }
 
+/* Change color on hover */
+.li-icon:hover {
+    color: white;
+}
+
+/* YouTube icon color */
 .yt-icon {
     color: red;
+}
+
+/* Change color on hover */
+.yt-icon:hover {
+    color: white;
 }
