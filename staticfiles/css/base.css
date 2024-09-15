@@ -97,15 +97,23 @@ h6 {
 }
 
 /* Unfollow and Follow button styles */
-/* Red color for unfollow */
-.unfollow {
+
+/* Apply red color for unfollow */
+.unfollow-button {
     color: red;
 }
 
-/* Green color for follow */
-.follow {
+/* Apply green color for follow */
+.follow-button {
     color: green;
 }
+
+/* Ensure the forms display inline with buttons styled correctly */
+.follow-form,
+.unfollow-form {
+    display: inline;
+}
+
 
 /* Form styling */
 .form {
