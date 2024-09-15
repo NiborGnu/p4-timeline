@@ -170,6 +170,19 @@ footer {
     color: white;
 }
 
+/* Styling for the 404, 403, and 500 pages */
+.display-1 {
+    font-size: 7rem;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.lead {
+    margin-bottom: 30px;
+}
+
 /* Ensure the TimePost form and posts have the same width on small screens */
 @media (max-width: 785px) {
     .row {
