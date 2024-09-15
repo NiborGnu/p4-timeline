@@ -20,11 +20,12 @@
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
 
-                    <!-- Post Edit Mode -->
+                    <!-- Edit TimePost -->
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
-                        <form method="POST" action="{% url 'edit_timepost' timepost.id %}?next={{ request.path }}">
+                        <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ timepost.id }}">
+                            <!-- Include 'next' URL as hidden input to return to the current page after editing -->
+                            <input type="hidden" name="next" value="{{ request.path }}">
                             <div class="form-group">
                                 <textarea name="body" rows="4" class="form-control">{{ timepost.body }}</textarea>
                             </div>
@@ -41,7 +42,9 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-muted ether-side">
                             <small><a href="{% url 'like' timepost.id %}?next={{ request.path }}"
-                                    aria-label="Like post"><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                                    aria-label="Like post">
+                                    <i class="fa-solid fa-thumbs-up fa-xl">
+                                    </i></a>
                                 {{ timepost.number_of_likes }}</small>
                             <!-- Comment Button -->
                             {% if timepost.comments.exists %}
@@ -59,7 +62,9 @@
                             </button>
                             {% endif %}
                             <small><a href="{% url 'dislike' timepost.id %}?next={{ request.path }}"
-                                    aria-label="Dislike post"><i class="fa-solid fa-thumbs-down fa-xl"></i></a>
+                                    aria-label="Dislike post">
+                                    <i class="fa-solid fa-thumbs-down fa-xl">
+                                    </i></a>
                                 {{ timepost.number_of_dislikes }}</small>
                         </li>
 
@@ -71,12 +76,14 @@
                         <li class="list-group-item text-muted ether-side">
                             <!-- Edit/Delete Options (for post owner or superuser) -->
                             {% if timepost.user == user or user.is_superuser %}
+                            <!-- Delete Button -->
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal-{{ timepost.id }}" aria-label="Delete Post">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
+                            <!-- Edit Button -->
                             <button class="btn btn-warning btn-sm" onclick="toggleEdit('{{ timepost.id }}')"
-                                aria-label="Edit Post">
+                                aria-label="Edit post" data-next="{{ request.path }}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             {% endif %}
@@ -100,16 +107,74 @@
 
                                 <!-- Edit/Delete Options for Comments (for comment owner or superuser) -->
                                 {% if comment.user == user or user.is_superuser %}
-                                <!-- Edit Comment Modal Trigger -->
+                                <!-- Edit Comment Button -->
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editCommentModal-{{ comment.id }}" aria-label="Edit Comment">
-                                    <i class="fa-regular fa-pen-to-square"></i></button>
+                                    data-bs-target="#editCommentModal-{{ comment.id }}" aria-label="Edit comment">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
 
-                                <!-- Delete Comment Modal Trigger -->
+                                <!-- Delete Comment Button -->
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#deleteCommentModal-{{ comment.id }}" aria-label="Delete Comment">
-                                    <i class="fa-regular fa-trash-can"></i></button>
+                                    data-bs-target="#deleteCommentModal-{{ comment.id }}" aria-label="Delete comment">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
                                 {% endif %}
+                            </div>
+
+                            <!-- Edit Comment -->
+                            <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
+                                aria-labelledby="editCommentModalLabel-{{ comment.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editCommentModalLabel-{{ comment.id }}">Edit
+                                                Comment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST"
+                                                action="{% url 'edit_comment' comment.id %}?next={{ request.path }}">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <textarea name="comment_body"
+                                                        class="form-control">{{ comment.body }}</textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delete Comment -->
+                            <div class="modal fade" id="deleteCommentModal-{{ comment.id }}" tabindex="-1"
+                                aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteCommentModalLabel">Confirm Deletion</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this comment?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form method="POST" action="{% url 'delete_comment' comment.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger"
+                                                    aria-label="Confirm comment deletion">Delete</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                aria-label="Cancel comment deletion">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         {% empty %}
@@ -118,7 +183,7 @@
                     </ul>
 
                     <!-- Add New Comment Form -->
-                    <form method="POST" action="{% url 'add_comment' timepost.id %}?next={{ request.path }}">
+                    <form method="POST" action="{% url 'add_comment' timepost.id %}">
                         {% csrf_token %}
                         <div class="form-group mt-3">
                             <textarea name="comment_body" rows="2" class="form-control" placeholder="Add a comment..."
@@ -129,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- Delete Post Confirmation Modal -->
+            <!-- Delete Timepost -->
             <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -143,8 +208,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="{% url 'delete_timepost' timepost.id %}?next={{ request.path }}"
-                                method="POST">
+                            <form action="{% url 'delete_timepost' timepost.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
@@ -157,7 +221,7 @@
 
         <!-- Right Column: New TimePost Form -->
         <div class="col-4">
-            <form method="POST" action="{% url 'home' %}?next={{ request.path }}">
+            <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-secondary timepost" aria-label="Submit new post">TimePost</button>
