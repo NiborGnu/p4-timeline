@@ -79,6 +79,18 @@ h6 {
     color: black;
 }
 
+.timepost:hover {
+    background-color: white;
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.comment:hover {
+    background-color: white;
+    color: #0056b3;
+    border: 1px solid #0056b3;
+}
+
 /* Hide elements */
 .form-hidden {
     display: none;
