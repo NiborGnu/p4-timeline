@@ -7,7 +7,7 @@ from django.dispatch import receiver
 # User Profile model
 class Profile(models.Model):
     # Link each Profile to a single User using a One-to-One relationship
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     
     # A Profile can follow multiple other Profiles
     follow = models.ManyToManyField(
@@ -19,21 +19,24 @@ class Profile(models.Model):
     
     # Automatically updated timestamp for when the profile was last modified
     date_modified = models.DateTimeField(auto_now=True)
+    bio = models.TextField(blank=True, null=True)
 
     # Return the username when the Profile is represented as a string
     def __str__(self):
         return self.user.username
-
 
 # Signal to create a Profile when a new User is created
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     # Check if the User was just created
     if created:
-        # Create a Profile associated with the new User
-        user_profile = Profile(user=instance)
-        user_profile.save()
+        Profile.objects.get_or_create(user=instance)
+        # Check if the Profile already exists
+        if not hasattr(instance, 'profile'):
+            # Create a Profile associated with the new User
+            user_profile = Profile(user=instance)
+            user_profile.save()
 
-        # Set the User to follow themselves automatically
-        user_profile.follow.set([user_profile.id])
-        user_profile.save()
+            # Set the User to follow themselves automatically
+            user_profile.follow.set([user_profile.id])
+            user_profile.save()
