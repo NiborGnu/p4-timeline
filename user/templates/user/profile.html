@@ -5,12 +5,14 @@
 <!-- Check if the profile exists -->
 {% if profile %}
 <div class="container text-center">
-    <div class="row">
-        <!-- Profile Header -->
-        <h1>{{ profile.user.username }}'s Profile</h1>
+    <!-- Profile Header -->
+    <h1>{{ profile.user.username }}'s Profile</h1>
+</div>
 
-        <!-- Profile Timeposts -->
-        <div class="col-8">
+<div class="container above">
+    <div class="row">
+        <!-- Main Column: Profile Timeposts -->
+        <div class="col-12 col-md-8">
             {% for timepost in timeposts %}
             <div class="card mb-3">
                 <!-- Post Content -->
@@ -24,7 +26,6 @@
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form method="POST" action="{% url 'edit_timepost' timepost.id %}">
                             {% csrf_token %}
-                            <!-- Include 'next' URL as hidden input to return to the profile page after editing -->
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <div class="form-group">
                                 <textarea name="body" rows="4" class="form-control">{{ timepost.body }}</textarea>
@@ -43,8 +44,7 @@
                         <li class="list-group-item text-muted ether-side">
                             <small><a href="{% url 'like' timepost.id %}?next={{ request.path }}"
                                     aria-label="Like post">
-                                    <i class="fa-solid fa-thumbs-up fa-xl">
-                                    </i></a>
+                                    <i class="fa-solid fa-thumbs-up fa-xl"></i></a>
                                 {{ timepost.number_of_likes }}</small>
                             <!-- Comment Button -->
                             {% if timepost.comments.exists %}
@@ -62,8 +62,7 @@
                             {% endif %}
                             <small><a href="{% url 'dislike' timepost.id %}?next={{ request.path }}"
                                     aria-label="Dislike post">
-                                    <i class="fa-solid fa-thumbs-down fa-xl">
-                                    </i></a>
+                                    <i class="fa-solid fa-thumbs-down fa-xl"></i></a>
                                 {{ timepost.number_of_dislikes }}</small>
                         </li>
 
@@ -220,8 +219,8 @@
             {% endfor %}
         </div>
 
-        <!-- Sidebar with Follows and Followed By -->
-        <div class="col-4">
+        <!-- Sidebar: Follows and Followed By -->
+        <div class="col-12 col-md-4 text-center below">
             <!-- Follows Card -->
             <div class="card mb-3">
                 <div class="card-header">
@@ -238,8 +237,8 @@
                         <form method="POST" action="{% url 'unfollow' following.user.id %}" class="unfollow-form">
                             {% csrf_token %}
                             <input type="hidden" name="next" value="{{ request.path }}">
-                            <button class="btn btn-link p-0 unfollow-button" aria-label="Unfollow {{ following }}"><i
-                                    class="fa-solid fa-user-minus"></i>
+                            <button class="btn btn-link p-0 unfollow-button" aria-label="Unfollow {{ following }}">
+                                <i class="fa-solid fa-user-minus"></i>
                             </button>
                         </form>
                         {% endif %}
@@ -253,7 +252,6 @@
                     <a href="{% url 'follows' profile.user.id %}" aria-label="See all follows">See All...</a>
                 </div>
             </div>
-
 
             <!-- Followed By Card -->
             <div class="card mb-3">
