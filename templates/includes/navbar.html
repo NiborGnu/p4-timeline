@@ -44,21 +44,24 @@
                         <a class="nav-link {% if url_name == 'logout' %}active{% endif %}"
                             href="{% url 'logout' %}">Logout</a>
                     </li>
-                </ul>
+                </ul> <!-- Closing the ul tag here -->
                 {% else %}
                 <!-- Links for unauthenticated users (Login and Register) -->
-                <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'register' %}active{% endif %}"
-                        href="{% url 'register' %}">Register</a>
-                </li>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'login' %}active{% endif %}"
+                            href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'register' %}active{% endif %}"
+                            href="{% url 'register' %}">Register</a>
+                    </li>
+                </ul>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <!-- Search form -->
-                <form class="d-flex" role="search" method="get" action="{% url 'search' %}">
+                <form class="d-flex ms-auto" role="search" method="get" action="{% url 'search' %}">
                     <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search"
                         value="{{ request.GET.q }}">
                     <button class="btn btn-outline-success" type="submit">Search</button>

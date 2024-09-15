@@ -31,8 +31,7 @@
     {% include 'includes/navbar.html' %}
 
     <!-- Main content container -->
-    <main class="container">
-
+    <main class="container my-4">
         <!-- Display messages (success or error notifications) -->
         {% if messages %}
         {% for message in messages %}
@@ -46,7 +45,6 @@
         <!-- Content block for the specific page content -->
         {% block content %}
         {% endblock %}
-
     </main>
 
     <!-- Footer -->

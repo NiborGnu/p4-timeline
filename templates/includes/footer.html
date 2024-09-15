@@ -1,15 +1,19 @@
 {% load static %}
 
-
 <!-- Footer -->
-<footer>
-    <a class="gh-icon" href="https://github.com/" target="_blank" rel="noopener"
-        aria-label="Github - Opens in a new tab">
-        <i class="fa-brands fa-github fa-xl"></i></a>
-    <a class="li-icon" href="https://www.linkedin.com/" target="_blank" rel="noopener"
-        aria-label="Linkedin - Opens in a new tab">
-        <i class="fa-brands fa-linkedin fa-xl"></i></a>
-    <a class="yt-icon" href="https://www.youtube.com/" target="_blank" rel="noopener"
-        aria-label="Youtube - Opens in a new tab">
-        <i class="fa-brands fa-youtube fa-xl"></i></a>
+<footer class="text-center py-3">
+    <div class="container">
+        <div class="social-icons">
+            <a class="gh-icon me-3" href="https://github.com/" target="_blank" rel="noopener"
+                aria-label="Github - Opens in a new tab">
+                <i class="fa-brands fa-github fa-xl"></i></a>
+            <a class="li-icon me-3" href="https://www.linkedin.com/" target="_blank" rel="noopener"
+                aria-label="Linkedin - Opens in a new tab">
+                <i class="fa-brands fa-linkedin fa-xl"></i></a>
+            <a class="yt-icon" href="https://www.youtube.com/" target="_blank" rel="noopener"
+                aria-label="Youtube - Opens in a new tab">
+                <i class="fa-brands fa-youtube fa-xl"></i></a>
+        </div>
+        <p class="mt-2">&copy; {{ current_year }} Rung. All rights reserved.</p>
+    </div>
 </footer>
