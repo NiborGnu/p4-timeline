@@ -27,3 +27,18 @@ function toggleComments(id) {
         toggleButton.innerHTML = '<i class="fa-solid fa-comments"></i> <small>' + commentCount + '</small>';
     }
 }
+
+// Function to validate the form and enable/disable the save button
+function validateForm(id) {
+    var bodyElement = document.getElementById("body-" + id);
+    var saveButton = document.getElementById("saveBtn-" + id);
+    var errorElement = document.getElementById("body-error-" + id);
+
+    if (bodyElement.value.trim() === "") {
+        saveButton.disabled = true;
+        errorElement.style.display = "block"; // Show the error message
+    } else {
+        saveButton.disabled = false;
+        errorElement.style.display = "none"; // Hide the error message
+    }
+}
