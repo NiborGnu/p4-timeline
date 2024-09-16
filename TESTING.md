@@ -158,4 +158,24 @@ IPhone 15
 
 ## Bugs
 
-- Some small bugs with bad placement of closing tags and spelling mistake but no big bugs incontered.
+- Found a bug that you could edit your post and leave it empty.
+
+   - Fix by implementing a form for the comments. 
+   ```python
+   class CommentForm(forms.ModelForm):
+    body = forms.CharField(
+         required=True,
+         widget=forms.Textarea(
+            attrs={
+               'placeholder': 'Add a comment...',
+               'class': 'form-control',
+               'rows': 3,# Set default height of textarea
+               'aria-label': 'Comment body',
+            }
+         ),
+         label="",
+    )
+
+      class Meta:
+         model = Comment
+         fields = ['body']
