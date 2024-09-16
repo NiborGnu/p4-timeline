@@ -160,7 +160,8 @@ IPhone 15
 
 - Found a bug that you could edit your post and leave it empty.
 
-   - Fix by implementing a form for the comments. 
+   - Fix by implementing a form, JavaScript and HTML for the comments. 
+
    ```python
    class CommentForm(forms.ModelForm):
     body = forms.CharField(
@@ -179,3 +180,25 @@ IPhone 15
       class Meta:
          model = Comment
          fields = ['body']
+   ```
+
+   ```JavaScript
+   function validateForm(id) {
+      var bodyElement = document.getElementById("body-" + id);
+      var saveButton = document.getElementById("saveBtn-" + id);
+      var errorElement = document.getElementById("body-error-" +  id); 
+      if (bodyElement.value.trim() === "") {
+          saveButton.disabled = true;
+          errorElement.style.display = "block"; // Show the error message
+      } else {
+          saveButton.disabled = false;
+          errorElement.style.display = "none"; // Hide the error  message
+      }
+   }
+   ```
+
+   ```html
+   <div id="body-error-{{ timepost.id }}" class="text-danger form-hidden">
+      This field cannot be empty.
+   </div>
+   ```
