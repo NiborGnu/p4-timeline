@@ -91,7 +91,7 @@ CSS was run through the offical [jigsaw_validator](https://jigsaw.w3.org/css-val
 
 ![jigsaw](documentation/test/base-css-validation.png)
 
-JS was run through the offical [jshint_validator](https://jshint.com/) to ensure that the JavaScript functions is correct and working.
+JS was run through the offical [jshint_validator](https://jshint.com/) to ensure that the JavaScript functions is correct and working. Have an One undefined variable on line 85 that is bootstrap but it works so din't do anything aboput it.
 
 ![jshint](documentation/test/javascript-validation.png)
 
