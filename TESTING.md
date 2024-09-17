@@ -190,11 +190,11 @@ IPhone 15
       var saveButton = document.getElementById("saveBtn-" + id);
       var errorElement = document.getElementById("body-error-" +  id); 
       if (bodyElement.value.trim() === "") {
-          saveButton.disabled = true;
-          errorElement.style.display = "block"; // Show the error message
+         saveButton.disabled = true;
+         errorElement.style.display = "block"; // Show the error message
       } else {
-          saveButton.disabled = false;
-          errorElement.style.display = "none"; // Hide the error  message
+         saveButton.disabled = false;
+         errorElement.style.display = "none"; // Hide the error  message
       }
    }
    ```
@@ -246,16 +246,16 @@ function toggleEdit(id) {
 ```JavaScript
 // Function to revert the changes made in the edit form
 function cancelEdit(id) {
-    var bodyElement = document.getElementById("body-" + id);
+   var bodyElement = document.getElementById("body-" + id);
 
-    // Restore the original value from the stored data attribute
-    var originalValue = bodyElement.getAttribute('data-original-value');
-    if (originalValue !== null) {
-        bodyElement.value = originalValue;
-    }
+   // Restore the original value from the stored data attribute
+   var originalValue = bodyElement.getAttribute('data-original-value');
+   if (originalValue !== null) {
+      bodyElement.value = originalValue;
+   }
 
-    // Hide the edit form and show the view mode
-    toggleEdit(id);
+   // Hide the edit form and show the view mode
+   toggleEdit(id);
 }
 ```
 
