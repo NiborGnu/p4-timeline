@@ -6,7 +6,6 @@
 | View menu        | Press menu in navbar                                                                                                                            | Menu view                                                                      | Menu view                                                                      | Pass |
 | Type a TimePost     | Write in text filed and push Timepost navbar                                                                                                                    | Timepost Made. Confirmation message                                                                   | Timepost Made. Confirmation message                                                                   | Pass |
 | Edit a Timepost   | Go to my edit icon, select the post you want to edit, Press edit, edit what you want and submit                  | See Timepost updated message and timepost updated   | See Timepost updated message and timepost updated   | Pass |
-| Delete a booking | Go to my homepage or my page, select the timepost you want to delete, Press delete, press Delete on message | See deleted message                                | See deleted message                               | Pass |
 | Make account     | Press register, type in your preferred username, first name, last name, email and password                                             | See message on home page You have successfully registered! Welcome!                    | See message on home page You have successfully registered! Welcome!                    | Pass |
 | login            | press login in navbar then input you username and password              |  Se the logged in homepage and message You have successfully logged in            | Se the logged in homepage and message You have successfully logged in              | Pass   |
 | logout           | Press logout in navbar then sign out                                                                                                            | See message you have signed out                                                | See message you have signed out                                                | Pass |
@@ -40,9 +39,10 @@ Tests were performed on the `TimePost` creation to ensure that:
    **Error message**: "This field is required."
 
 
-## Unit Testing
+## Django Unit Testing
 
 Unit tests were created to test some basic functionality such as templates used and redirects. These can be found in the tests.py files in the respective apps.
+
 
 Results:
 
@@ -91,7 +91,7 @@ CSS was run through the offical [jigsaw_validator](https://jigsaw.w3.org/css-val
 
 ![jigsaw](documentation/test/base-css-validation.png)
 
-JS was run through the offical [jshint_validator](https://jshint.com/) to ensure that the JavaScript functions is correct and working. Have an One undefined variable on line 85 that is bootstrap but it works so din't do anything aboput it.
+JS was run through the offical [jshint_validator](https://jshint.com/) to ensure that the JavaScript functions is correct and working. Have an One undefined variable on line 85 that is bootstrap but it works so din't do anything about it.
 
 ![jshint](documentation/test/javascript-validation.png)
 
