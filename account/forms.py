@@ -4,31 +4,41 @@ from django.contrib.auth.models import User
 
 
 class SignUpForm(UserCreationForm):
+    # Define additional fields for the form
     email = forms.EmailField(
+        # No label displayed
         label='',
         widget=forms.TextInput(
             attrs={
+                # CSS class for styling
                 'class': 'form-control',
+                # Placeholder text
                 'placeholder': 'Email Address'
             }
         )
     )
     first_name = forms.CharField(
+        # No label displayed
         label='',
-        max_length=100,
+        max_length=100,  # Max length for the field
         widget=forms.TextInput(
             attrs={
+                # CSS class for styling
                 'class': 'form-control',
+                # Placeholder text
                 'placeholder': 'First Name'
             }
         )
     )
     last_name = forms.CharField(
+        # No label displayed
         label='',
-        max_length=100,
+        max_length=100,  # Max length for the field
         widget=forms.TextInput(
             attrs={
+                # CSS class for styling
                 'class': 'form-control',
+                # Placeholder text
                 'placeholder': 'Last Name'
             }
         )
@@ -37,23 +47,36 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
+            # Username field
             'username',
+            # First name field
             'first_name',
+            # Last name field
             'last_name',
+            # Email field
             'email',
+            # Password field (new password)
             'password1',
+            # Password field (confirm password)
             'password2'
         )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Username field configuration
+        # Remove the 'usable_password' field if it exists
+        self.fields.pop('usable_password', None)
+
+        # Configuration for the username field
         self.fields['username'].widget.attrs.update({
+            # CSS class for styling
             'class': 'form-control',
+            # Placeholder text
             'placeholder': 'User Name',
+            # ARIA attribute for accessibility
             'aria-describedby': 'id_username_helptext'
         })
+        # No label displayed
         self.fields['username'].label = ''
         self.fields['username'].help_text = (
             '<span id="id_username_helptext" class="form-text text-muted">'
@@ -62,12 +85,16 @@ class SignUpForm(UserCreationForm):
             '</span>'
         )
 
-        # Password1 field configuration
+        # Configuration for the password1 field
         self.fields['password1'].widget.attrs.update({
+            # CSS class for styling
             'class': 'form-control',
+            # Placeholder text
             'placeholder': 'Password',
+            # ARIA attribute for accessibility
             'aria-describedby': 'id_password1_helptext'
         })
+        # No label displayed
         self.fields['password1'].label = ''
         self.fields['password1'].help_text = (
             '<ul id="id_password1_helptext" '
@@ -80,13 +107,16 @@ class SignUpForm(UserCreationForm):
             '</ul>'
         )
 
-
-# Password2 field configuration
+        # Configuration for the password2 field
         self.fields['password2'].widget.attrs.update({
+            # CSS class for styling
             'class': 'form-control',
+            # Placeholder text
             'placeholder': 'Confirm Password',
+            # ARIA attribute for accessibility
             'aria-describedby': 'id_password2_helptext'
         })
+        # No label displayed
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = (
             '<span id="id_password2_helptext" class="form-text text-muted">'
@@ -95,24 +125,24 @@ class SignUpForm(UserCreationForm):
             '</span>'
         )
 
-
-def clean_email(self):
-    """Validate email uniqueness."""
-    email = self.cleaned_data.get('email')
-    if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
-        raise forms.ValidationError(
-            'This email address is already in use.'
-        )
-    return email
-
-
-def clean_username(self):
-    """Validate username uniqueness."""
-    username = self.cleaned_data.get('username')
-    if User.objects.filter(username=username) \
+    def clean_email(self):
+        """Validate email uniqueness."""
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email) \
             .exclude(pk=self.instance.pk) \
-            .exists():
-        raise forms.ValidationError(
-            'This username is already taken.'
-        )
-    return username
+                .exists():
+            raise forms.ValidationError(
+                'This email address is already in use.'
+            )
+        return email
+
+    def clean_username(self):
+        """Validate username uniqueness."""
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username) \
+                .exclude(pk=self.instance.pk) \
+                .exists():
+            raise forms.ValidationError(
+                'This username is already taken.'
+            )
+        return username

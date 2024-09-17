@@ -1,25 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Centered container for the registration form -->
+<!-- Container for the registration form, centered on the page -->
 <div class="col-md-6 offset-md-3">
-    <!-- Registration form title -->
     <h1>Register</h1>
     <br>
-    <!-- Form for user registration -->
+    <!-- Start of the registration form -->
     <form method="POST" action="{% url 'register' %}">
+        <!-- CSRF token for security -->
         {% csrf_token %}
-        <!-- Security token for cross-site request forgery protection -->
 
-        <!-- Display form errors (if any) -->
+        <!-- Display form errors if any -->
         {% if form.errors %}
         <div class="alert alert-danger">
             <ul>
+                <!-- Loop through each field in the form -->
                 {% for field in form %}
+                {% if field.name != 'usable_password' %}
+                <!-- Display errors specific to the field -->
                 {% for error in field.errors %}
                 <li>{{ error }}</li>
                 {% endfor %}
+                {% endif %}
                 {% endfor %}
+
+                <!-- Display non-field errors -->
                 {% for error in form.non_field_errors %}
                 <li>{{ error }}</li>
                 {% endfor %}
@@ -27,14 +32,22 @@
         </div>
         {% endif %}
 
-        <!-- Render each form field manually -->
+        <!-- Loop through each field in the form to render them -->
         {% for field in form %}
+        {% if field.name != 'usable_password' %}
         <div class="form-group">
+            <!-- Label for the field -->
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            <!-- Render the field itself (input, select, etc.) -->
             {{ field }}
+
+            <!-- Display help text if available -->
             {% if field.help_text %}
             <div id="{{ field.id_for_label }}_help" class="form-text text-muted">{{ field.help_text|safe }}</div>
             {% endif %}
+
+            <!-- Display field-specific errors -->
             {% if field.errors %}
             <div class="text-danger">
                 {% for error in field.errors %}
@@ -43,9 +56,10 @@
             </div>
             {% endif %}
         </div>
+        {% endif %}
         {% endfor %}
 
-        <!-- Submit button for the form with an accessible name -->
+        <!-- Submit button for the form -->
         <button type="submit" class="btn btn-secondary" aria-label="Register account">Register</button>
     </form>
 </div>
