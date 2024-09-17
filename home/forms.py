@@ -3,6 +3,9 @@ from .models import TimePost, Comment
 
 
 class TimePostForm(forms.ModelForm):
+    """
+    Form for creating or updating a TimePost.
+    """
     # Define a field for the body of the TimePost
     body = forms.CharField(
         # Specify that this field is required
@@ -25,6 +28,9 @@ class TimePostForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        Metadata for the TimePostForm.
+        """
         # Specify the model associated with this form
         model = TimePost
         # Exclude fields that should not be included in the form
@@ -32,6 +38,9 @@ class TimePostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for creating or updating a Comment.
+    """
     # Define a field for the body of the comment
     body = forms.CharField(
         # Specify that this field is required
@@ -54,6 +63,9 @@ class CommentForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        Metadata for the CommentForm.
+        """
         # Specify the model associated with this form
         model = Comment
         # Include only the 'body' field in the form

@@ -9,6 +9,15 @@ from user.models import Profile
 
 @login_required
 def users(request):
+    """
+    List all users except the current logged-in user.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing users.
+    """
     # List all users except the current user
     users = Profile.objects.exclude(user=request.user)
     return render(
@@ -20,6 +29,17 @@ def users(request):
 
 @login_required
 def profile(request, pk):
+    """
+    View profile details and handle follow/unfollow actions.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the user whose profile is viewed.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing the profile and
+        their timeposts.
+    """
     # Get profile and timeposts of the user
     profile = get_object_or_404(Profile, user_id=pk)
     timeposts = TimePost.objects.filter(user_id=pk).order_by('-created_at')
@@ -51,6 +71,16 @@ def profile(request, pk):
 
 @login_required
 def followers(request, pk):
+    """
+    List followers of a user, excluding the current user.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the user whose followers are listed.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing the followers.
+    """
     # List followers of the user, excluding the current user
     profile = get_object_or_404(Profile, user_id=pk)
     followers_list = profile.followed_by.exclude(user_id=request.user.id)
@@ -71,6 +101,16 @@ def followers(request, pk):
 
 @login_required
 def follows(request, pk):
+    """
+    List users the profile is following, excluding the current user.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the user whose following list is shown.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing the follows.
+    """
     # List users the profile is following, excluding the current user
     profile = get_object_or_404(Profile, user_id=pk)
     follows_list = profile.follow.exclude(user_id=request.user.id)
@@ -91,6 +131,16 @@ def follows(request, pk):
 
 @login_required
 def delete_profile(request, profile_id):
+    """
+    Handle profile deletion by user or superuser.
+
+    Args:
+        request: The HTTP request object.
+        profile_id: The ID of the profile to be deleted.
+
+    Returns:
+        HttpResponse: Redirects to home or users page after deletion.
+    """
     # Handle profile deletion by user or superuser
     profile = get_object_or_404(Profile, id=profile_id)
 

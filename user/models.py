@@ -6,6 +6,17 @@ from django.dispatch import receiver
 
 # User Profile model
 class Profile(models.Model):
+    """
+    User Profile model that extends the
+    built-in User model with additional features.
+
+    Attributes:
+        user: One-to-One relationship with the User model.
+        follow: Many-to-Many relationship to allow users to follow other users.
+        date_modified: Automatically updated timestamp
+        for when the profile was last modified.
+        bio: A text field for storing a biography or description.
+    """
     # Link each Profile to a single User using a One-to-One relationship
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
 
@@ -31,6 +42,15 @@ class Profile(models.Model):
 # Signal to create a Profile when a new User is created
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    """
+    Signal handler to create a Profile instance whenever a new User is created.
+
+    Args:
+        sender: The model class that sent the signal.
+        instance: The actual instance of the model.
+        created: Boolean indicating if a new record was created.
+        kwargs: Additional keyword arguments.
+    """
     # Check if the User was just created
     if created:
         Profile.objects.get_or_create(user=instance)

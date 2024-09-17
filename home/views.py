@@ -8,6 +8,15 @@ from .forms import TimePostForm
 
 
 def index(request):
+    """
+    Handle authenticated users creating TimePosts and list all TimePosts.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing TimePosts and form.
+    """
     # Handle authenticated users creating TimePosts
     if request.user.is_authenticated:
         form = TimePostForm(request.POST or None)
@@ -34,6 +43,16 @@ def index(request):
 
 @login_required
 def follow(request, pk):
+    """
+    Follow a user by their profile ID.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the profile to follow.
+
+    Returns:
+        HttpResponse: Redirect to the next URL or home.
+    """
     # Follow a user by their profile ID
     profile = get_object_or_404(Profile, user_id=pk)
     request.user.profile.follow.add(profile)
@@ -44,6 +63,16 @@ def follow(request, pk):
 
 @login_required
 def unfollow(request, pk):
+    """
+    Unfollow a user by their profile ID.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the profile to unfollow.
+
+    Returns:
+        HttpResponse: Redirect to the next URL or home.
+    """
     # Unfollow a user by their profile ID
     profile = get_object_or_404(Profile, user_id=pk)
     request.user.profile.follow.remove(profile)
@@ -54,6 +83,16 @@ def unfollow(request, pk):
 
 @login_required
 def timepost_like(request, pk):
+    """
+    Toggle like status on a TimePost.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the TimePost to like or unlike.
+
+    Returns:
+        HttpResponse: Redirect to the next URL.
+    """
     # Toggle like status on a TimePost
     timepost = get_object_or_404(TimePost, id=pk)
 
@@ -70,6 +109,16 @@ def timepost_like(request, pk):
 
 @login_required
 def timepost_dislike(request, pk):
+    """
+    Toggle dislike status on a TimePost.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the TimePost to dislike or un-dislike.
+
+    Returns:
+        HttpResponse: Redirect to the next URL.
+    """
     # Toggle dislike status on a TimePost
     timepost = get_object_or_404(TimePost, id=pk)
 
@@ -86,6 +135,16 @@ def timepost_dislike(request, pk):
 
 @login_required
 def delete_timepost(request, pk):
+    """
+    Delete a TimePost if the user is the owner or a superuser.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the TimePost to delete.
+
+    Returns:
+        HttpResponse: Redirect to the next URL after deletion.
+    """
     # Delete a TimePost if the user is the owner or a superuser
     timepost = get_object_or_404(TimePost, id=pk)
 
@@ -108,6 +167,16 @@ def delete_timepost(request, pk):
 
 @login_required
 def edit_timepost(request, pk):
+    """
+    Edit a TimePost if the user is the owner or a superuser.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the TimePost to edit.
+
+    Returns:
+        HttpResponse: Rendered HTML template or redirect to the next URL.
+    """
     # Edit a TimePost if the user is the owner or a superuser
     timepost = get_object_or_404(TimePost, pk=pk)
 
@@ -134,6 +203,15 @@ def edit_timepost(request, pk):
 
 
 def search(request):
+    """
+    Perform a search for profiles based on username.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: Rendered HTML template showing search results.
+    """
     # Perform a search for profiles based on username
     if request.user.is_authenticated:
         query = request.GET.get('q', '')
@@ -152,6 +230,16 @@ def search(request):
 
 @login_required
 def add_comment(request, pk):
+    """
+    Add a comment to a TimePost.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the TimePost to comment on.
+
+    Returns:
+        HttpResponse: Redirect to the next URL with comment count.
+    """
     # Add a comment to a TimePost
     timepost = get_object_or_404(TimePost, id=pk)
 
@@ -177,6 +265,16 @@ def add_comment(request, pk):
 
 @login_required
 def delete_comment(request, comment_id):
+    """
+    Delete a comment by its ID.
+
+    Args:
+        request: The HTTP request object.
+        comment_id: The ID of the comment to delete.
+
+    Returns:
+        HttpResponse: Redirect to the next URL.
+    """
     # Delete a comment by its ID
     comment = get_object_or_404(Comment, id=comment_id)
 
@@ -190,6 +288,16 @@ def delete_comment(request, comment_id):
 
 @login_required
 def edit_comment(request, comment_id):
+    """
+    Edit a comment by its ID.
+
+    Args:
+        request: The HTTP request object.
+        comment_id: The ID of the comment to edit.
+
+    Returns:
+        HttpResponse: Redirect to the next URL.
+    """
     # Edit a comment by its ID
     comment = get_object_or_404(Comment, id=comment_id)
 

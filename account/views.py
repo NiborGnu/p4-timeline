@@ -8,59 +8,60 @@ from django.contrib.auth.models import User
 
 
 def login_user(request):
-    # Handle POST request for user login
+    """
+    Handle user login. On POST, authenticate and log in the user.
+    On GET, render the login page.
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            # Authentication successful, log in the user
             login(request, user)
             messages.success(request, 'You have successfully logged in')
             return redirect('home')
         else:
-            # Authentication failed, show error message and redirect
             messages.error(request, 'Error logging in. Please try again')
             return redirect('login')
 
-    # Handle GET request: Render the login page
     return render(request, 'account/login.html')
 
 
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout_user(request):
-    # Handle POST request for user logout
+    """
+    Handle user logout. On POST, log out the user or cancel logout.
+    On GET, render the logout confirmation page.
+    """
     if request.method == 'POST':
         if 'logout-no' in request.POST:
-            # Logout canceled, show info message and redirect
             messages.info(request, 'Logout canceled.')
             return redirect('home')
         else:
-            # Log out the user and show success message
             logout(request)
             messages.success(
                 request, 'You have been logged out. Hope to see you soon!'
             )
             response = redirect('home')
-            # Set additional cache control headers
             response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
             response['Pragma'] = 'no-cache'
             response['Expires'] = '0'
             return response
 
-    # Handle GET request: Render the logout confirmation page
     return render(request, 'account/logout.html')
 
 
 def register_user(request):
-    # Initialize the signup form
+    """
+    Handle user registration. On POST, validate and save the user.
+    On GET or invalid POST, render the registration page.
+    """
     form = SignUpForm()
 
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            # Save the new user and log them in
             user = form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
@@ -71,22 +72,22 @@ def register_user(request):
             )
             return redirect('home')
 
-    # Handle GET request or invalid POST: Render the registration page
     return render(request, "account/register.html", {'form': form})
 
 
 @login_required
 def update_user(request):
-    # Ensure the user is authenticated and fetch their details
+    """
+    Handle user profile update. On POST, save updates and re-login user.
+    On GET or invalid POST, render the profile update page.
+    """
     current_user = get_object_or_404(User, id=request.user.id)
     form = SignUpForm(request.POST or None, instance=current_user)
 
     if form.is_valid():
-        # Save the updated user details and re-login the user
         form.save()
         login(request, current_user)
         messages.success(request, 'Your profile was updated successfully')
         return redirect('home')
 
-    # Handle GET request or invalid POST: Render the profile update page
     return render(request, 'account/edit_profile.html', {'form': form})

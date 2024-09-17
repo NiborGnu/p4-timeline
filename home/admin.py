@@ -4,30 +4,34 @@ from .models import TimePost
 from user.models import Profile
 
 
-# Unregister the default Group
+# Unregister the default Group model from the admin interface
 admin.site.unregister(Group)
 
 
-# Put Profile in User Model
 class ProfileInline(admin.StackedInline):
+    """
+    Inline admin interface for the Profile model.
+    """
     model = Profile
 
 
-# User Model
 class UserAdmin(admin.ModelAdmin):
+    """
+    Custom admin interface for the User model.
+    """
     model = User
-    # Display username
+    # Display only the username field
     fields = ['username']
     inlines = [ProfileInline]
 
 
-# Unregister the default User
+# Unregister the default User model from the admin interface
 admin.site.unregister(User)
 
 
-# Register the new User
+# Register the User model with the custom UserAdmin interface
 admin.site.register(User, UserAdmin)
 
 
-# Register TimePost
+# Register the TimePost model in the admin interface
 admin.site.register(TimePost)

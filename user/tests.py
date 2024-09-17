@@ -8,6 +8,11 @@ from home.models import TimePost
 class ProfileTests(TestCase):
 
     def setUp(self):
+        """
+        Create test users, profiles, timeposts, and set up follow relations.
+
+        Also initializes a test client and logs in a user.
+        """
         # Create test users
         self.user1 = User.objects.create_user(
             username='user1', password='password'
@@ -41,14 +46,18 @@ class ProfileTests(TestCase):
         self.client.login(username='user1', password='password')
 
     def test_view_users(self):
-        # Test viewing the users list
+        """
+        Test viewing the list of users, excluding the current user.
+        """
         response = self.client.get(reverse('users'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.user2.username)
         self.assertNotContains(response, self.user1.username)
 
     def test_view_profile(self):
-        # Test viewing a user's profile
+        """
+        Test viewing a user's profile and their timeposts.
+        """
         response = self.client.get(
             reverse('profile', args=[self.user1.id])
         )
@@ -57,7 +66,9 @@ class ProfileTests(TestCase):
         self.assertContains(response, self.timepost1.body)
 
     def test_view_follows(self):
-        # Test viewing the list of users a profile follows
+        """
+        Test viewing the list of users a profile follows.
+        """
         response = self.client.get(
             reverse('follows', args=[self.user1.id])
         )
@@ -66,6 +77,9 @@ class ProfileTests(TestCase):
         self.assertNotContains(response, self.user3.username)
 
     def test_follow_unfollow(self):
+        """
+        Test following and unfollowing a user.
+        """
         # Test following a user
         response = self.client.post(
             reverse('profile', args=[self.user2.id]),
@@ -74,7 +88,7 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 302)  # Redirect check
         self.assertRedirects(response, reverse(
             'profile', args=[self.user2.id]
-            ))
+        ))
         self.profile1.refresh_from_db()
         self.assertIn(self.profile2, self.profile1.follow.all())
 
@@ -86,12 +100,14 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 302)  # Redirect check
         self.assertRedirects(response, reverse(
             'profile', args=[self.user2.id]
-            ))
+        ))
         self.profile1.refresh_from_db()
         self.assertNotIn(self.profile2, self.profile1.follow.all())
 
     def test_delete_profile(self):
-        # Test profile deletion
+        """
+        Test deleting a profile.
+        """
         response = self.client.post(
             reverse('delete_profile', args=[self.user1.id])
         )
@@ -99,7 +115,9 @@ class ProfileTests(TestCase):
         self.assertFalse(User.objects.filter(username='user1').exists())
 
     def test_no_profiles(self):
-        # Test behavior when no profiles are available
+        """
+        Test behavior when no profiles are available.
+        """
         Profile.objects.all().delete()
         response = self.client.get(reverse('users'))
         self.assertContains(
@@ -107,7 +125,9 @@ class ProfileTests(TestCase):
         )  # Check message for no profiles
 
     def tearDown(self):
-        # Clean up data after tests
+        """
+        Clean up data after tests.
+        """
         User.objects.all().delete()
         Profile.objects.all().delete()
         TimePost.objects.all().delete()

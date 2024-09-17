@@ -8,6 +8,9 @@ from user.models import Profile
 class HomeViewsTests(TestCase):
 
     def setUp(self):
+        """
+        Set up URLs, create a test user, and log in the user.
+        """
         # URLs for home and search pages
         self.home_url = reverse('home')
         self.search_url = reverse('search')
@@ -30,13 +33,17 @@ class HomeViewsTests(TestCase):
         )
 
     def test_homepage_get(self):
-        # Test if the homepage loads successfully
+        """
+        Test if the homepage loads successfully.
+        """
         response = self.client.get(self.home_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')
 
     def test_create_timepost_success(self):
-        # Test if a TimePost is created successfully
+        """
+        Test if a TimePost is created successfully.
+        """
         response = self.client.post(
             self.home_url,
             {'body': 'This is a test TimePost'}
@@ -49,6 +56,9 @@ class HomeViewsTests(TestCase):
         )
 
     def test_search_functionality(self):
+        """
+        Test search functionality for user profiles.
+        """
         # Create another user for search functionality test
         other_user = User.objects.create_user(
             username='otheruser',
