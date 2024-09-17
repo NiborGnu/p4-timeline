@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
 class SignUpForm(UserCreationForm):
@@ -20,7 +21,7 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
         # No label displayed
         label='',
-        max_length=100,  # Max length for the field
+        max_length=20,  # Max length for the field
         widget=forms.TextInput(
             attrs={
                 # CSS class for styling
@@ -33,13 +34,35 @@ class SignUpForm(UserCreationForm):
     last_name = forms.CharField(
         # No label displayed
         label='',
-        max_length=100,  # Max length for the field
+        max_length=20,  # Max length for the field
         widget=forms.TextInput(
             attrs={
                 # CSS class for styling
                 'class': 'form-control',
                 # Placeholder text
                 'placeholder': 'Last Name'
+            }
+        )
+    )
+
+    # Enforce min and max length for the username
+    username = forms.CharField(
+        label='',
+        max_length=15,
+        min_length=3,
+        validators=[
+            # Minimum length
+            MinLengthValidator(3,
+                message='Username must be at least 3 characters long.'),
+            # Maximum length
+            MaxLengthValidator(15,
+                message='Username cannot be longer than 15 characters.'),
+        ],
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'User Name',
+                'aria-describedby': 'id_username_helptext'
             }
         )
     )
@@ -79,10 +102,10 @@ class SignUpForm(UserCreationForm):
         # No label displayed
         self.fields['username'].label = ''
         self.fields['username'].help_text = (
-            '<span id="id_username_helptext" class="form-text text-muted">'
-            '<small>Required. 150 characters or fewer. Letters, digits, and '
-            '@/./+/-/_ only.</small>'
-            '</span>'
+            '<ul id="id_username_helptext" class="form-text text-muted">'
+            '<li><small>3-15 characters. Letters, digits, and '
+            '@/./+/-/_ only.</small></li>'
+            '</ul>'
         )
 
         # Configuration for the password1 field

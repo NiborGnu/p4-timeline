@@ -5,13 +5,14 @@
 <div class="col-md-6 offset-md-3">
     <h1>Register</h1>
     <br>
+
     <!-- Start of the registration form -->
     <form method="POST" action="{% url 'register' %}">
         <!-- CSRF token for security -->
         {% csrf_token %}
 
-        <!-- Display form errors if any -->
-        {% if form.errors %}
+        <!-- Display non-field form errors (like password mismatches) -->
+        {% if form.non_field_errors %}
         <div class="alert alert-danger">
             <ul>
                 <!-- Loop through each field in the form -->
@@ -44,21 +45,26 @@
 
             <!-- Display help text if available -->
             {% if field.help_text %}
-            <div id="{{ field.id_for_label }}_help" class="form-text text-muted">{{ field.help_text|safe }}</div>
+            <div id="{{ field.id_for_label }}_help" class="form-text text-muted">
+                {{ field.help_text|safe }}
+            </div>
             {% endif %}
 
-            <!-- Display field-specific errors -->
+            <!-- Display field-specific errors if they exist -->
             {% if field.errors %}
             <div class="text-danger">
-                {% for error in field.errors %}
-                <small>{{ error }}</small><br>
-                {% endfor %}
+                <ul>
+                    {% for error in field.errors %}
+                    <li><small>{{ error }}</small></li>
+                    {% endfor %}
+                </ul>
             </div>
             {% endif %}
         </div>
         {% endif %}
         {% endfor %}
 
+        <br>
         <!-- Submit button for the form -->
         <button type="submit" class="btn btn-secondary" aria-label="Register account">Register</button>
     </form>
