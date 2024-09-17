@@ -38,9 +38,18 @@ class TimePost(models.Model):
 
 
 class Comment(models.Model):
+    # Foreign key linking to the User model.
+    # If the user is deleted, cascade the deletion to comments.
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # Foreign key linking to the TimePost model.
+    # 'comments' allows reverse access from TimePost to its comments.
     timepost = models.ForeignKey(
         TimePost, related_name='comments', on_delete=models.CASCADE
-        )
+    )
+
+    # Field to store the text content of the comment
     body = models.TextField()
+
+    # Timestamp for when the comment was created, set automatically
     created_at = models.DateTimeField(auto_now_add=True)

@@ -5,24 +5,24 @@
 {% if user.is_authenticated %}
 <!-- Main container for authenticated users -->
 <div class="container text-center">
-    <!-- Title -->
+    <!-- Title of the timeline -->
     <h1>Timeline</h1>
 </div>
-<div class="container text-center below">
 
+<div class="container text-center below">
     <div class="row">
-        <!-- TimePosts -->
+        <!-- Column displaying TimePosts -->
         <div class="col-12 col-md-8">
             {% for timepost in timeposts %}
             <div class="card mb-3">
                 <!-- Post Content -->
                 <div class="card-body">
-                    <!-- Post View Mode -->
+                    <!-- View mode of the TimePost -->
                     <div id="timepost-view-{{ timepost.id }}">
                         <p class="card-text">{{ timepost.body }}</p>
                     </div>
 
-                    <!-- Edit TimePost -->
+                    <!-- Edit TimePost Form (hidden initially) -->
                     <div id="edit-form-{{ timepost.id }}" class="form-hidden">
                         <form id="editForm-{{ timepost.id }}" method="POST"
                             action="{% url 'edit_timepost' timepost.id %}">
@@ -31,28 +31,31 @@
                             <div class="form-group">
                                 <textarea id="body-{{ timepost.id }}" name="body" rows="4" class="form-control"
                                     oninput="validateForm('{{ timepost.id }}')">{{ timepost.body }}</textarea>
+                                <!-- Error message for empty field -->
                                 <div id="body-error-{{ timepost.id }}" class="text-danger form-hidden">
                                     This field cannot be empty.
                                 </div>
                             </div>
                             <div class="form-group mt-3">
+                                <!-- Save Changes Button -->
                                 <button id="saveBtn-{{ timepost.id }}" aria-label="Save Changes" type="submit"
                                     class="btn btn-primary" disabled>Save Changes</button>
+                                <!-- Cancel Button -->
                                 <button aria-label="Cancel" type="button" class="btn btn-secondary"
                                     onclick="cancelEdit('{{ timepost.id }}')">Cancel</button>
                             </div>
                         </form>
                     </div>
 
-                    <!-- Post Likes/Dislikes and Action Buttons -->
+                    <!-- Post Actions: Likes, Dislikes, and Comments -->
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-muted ether-side">
+                            <!-- Like Button -->
                             <small><a href="{% url 'like' timepost.id %}?next={{ request.path }}"
                                     aria-label="Like post">
-                                    <i class="fa-solid fa-thumbs-up fa-xl">
-                                    </i></a>
+                                    <i class="fa-solid fa-thumbs-up fa-xl"></i></a>
                                 {{ timepost.number_of_likes }}</small>
-                            <!-- Comment Button -->
+                            <!-- Comment Button with toggle feature -->
                             {% if timepost.comments.exists %}
                             <button class="btn btn-info btn-sm comment" id="comment-toggle-{{ timepost.id }}"
                                 data-comment-count="{{ timepost.comments.count }}"
@@ -67,20 +70,21 @@
                                 <i class="fa-solid fa-comments"></i>
                             </button>
                             {% endif %}
+                            <!-- Dislike Button -->
                             <small><a href="{% url 'dislike' timepost.id %}?next={{ request.path }}"
                                     aria-label="Dislike post">
-                                    <i class="fa-solid fa-thumbs-down fa-xl">
-                                    </i></a>
+                                    <i class="fa-solid fa-thumbs-down fa-xl"></i></a>
                                 {{ timepost.number_of_dislikes }}</small>
                         </li>
 
+                        <!-- TimePost Metadata: Creation time and author -->
                         <li class="list-group-item text-muted ether-side">
                             <small>Made at {{ timepost.created_at|date:"H:i Y-m-d" }}</small>
                             <small>Made by <a href="{% url 'profile' timepost.user.id %}"
                                     aria-label="View {{ timepost.user }}'s profile">{{ timepost.user }}</a></small>
                         </li>
                         <li class="list-group-item text-muted ether-side">
-                            <!-- Edit/Delete TimePost (for post owner or superuser) -->
+                            <!-- Edit/Delete TimePost Buttons (for post owner or superuser) -->
                             {% if timepost.user == user or user.is_superuser %}
                             <!-- Delete TimePost Button -->
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
@@ -111,7 +115,7 @@
                                         aria-label="View {{ comment.user.username }}'s profile">{{ comment.user.username }}</a>
                                 </small>
 
-                                <!-- Edit/Delete Comments (for comment owner or superuser) -->
+                                <!-- Edit/Delete Comment Buttons (for comment owner or superuser) -->
                                 {% if comment.user == user or user.is_superuser %}
                                 <!-- Edit Comment Button -->
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
@@ -127,7 +131,7 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Edit Comment -->
+                            <!-- Edit Comment Modal -->
                             <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
                                 aria-labelledby="editCommentModalLabel-{{ comment.id }}" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -157,7 +161,7 @@
                                 </div>
                             </div>
 
-                            <!-- Delete Comment -->
+                            <!-- Delete Comment Modal -->
                             <div class="modal fade" id="deleteCommentModal-{{ comment.id }}" tabindex="-1"
                                 aria-labelledby="deleteCommentModalLabel-{{ comment.id }}" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -187,6 +191,7 @@
 
                         </li>
                         {% empty %}
+                        <!-- Message when there are no comments -->
                         <li class="list-group-item">No comments yet.</li>
                         {% endfor %}
                     </ul>
@@ -203,7 +208,7 @@
                 </div>
             </div>
 
-            <!-- Delete Timepost -->
+            <!-- Delete TimePost Modal -->
             <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1"
                 aria-labelledby="deleteModalLabel-{{ timepost.id }}" aria-hidden="true">
                 <div class="modal-dialog">
@@ -230,6 +235,7 @@
 
         <!-- New TimePost Form -->
         <div class="col-12 col-md-4 above">
+            <!-- Form to create a new TimePost -->
             <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -246,6 +252,7 @@
         <div>
             <h1>Welcome!</h1>
             <p>Sign up or login to get started TimePosting and following!</p>
+            <!-- Links for registration and login -->
             <a href="{% url 'register' %}" class="btn btn-secondary" aria-label="Register">Register</a>
             <a href="{% url 'login' %}" class="btn btn-secondary" aria-label="Login">Login</a>
         </div>
