@@ -43,6 +43,10 @@ Tests were performed on the `TimePost` creation to ensure that:
 
 Unit tests were created to test some basic functionality such as templates used and redirects. These can be found in the tests.py files in the respective apps.
 
+### App tests page:
+   - [Account tests](https://github.com/NiborGnu/p4-timeline/blob/main/account/tests.py)
+   - [Home tests](https://github.com/NiborGnu/p4-timeline/blob/main/home/tests.py)
+   - [User tests](https://github.com/NiborGnu/p4-timeline/blob/main/user/tests.py)
 
 Results:
 
@@ -176,7 +180,7 @@ Steps to test:
 
 Expected:
 
-Website is responsive on all screen sizes and no images are pixelated or stretched. No horizontal scroll is present. No elements overlap.
+Website is responsive on all screen sizes and no images are pixelated or stretched. No elements overlap.
 
 Actual:
 
