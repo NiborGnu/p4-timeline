@@ -52,10 +52,12 @@ class SignUpForm(UserCreationForm):
         min_length=3,
         validators=[
             # Minimum length
-            MinLengthValidator(3,
+            MinLengthValidator(
+                3,
                 message='Username must be at least 3 characters long.'),
             # Maximum length
-            MaxLengthValidator(15,
+            MaxLengthValidator(
+                15,
                 message='Username cannot be longer than 15 characters.'),
         ],
         widget=forms.TextInput(
