@@ -39,7 +39,7 @@
                                 <button id="saveBtn-{{ timepost.id }}" aria-label="Save Changes" type="submit"
                                     class="btn btn-primary" disabled>Save Changes</button>
                                 <button aria-label="Cancel" type="button" class="btn btn-secondary"
-                                    onclick="toggleEdit('{{ timepost.id }}')">Cancel</button>
+                                    onclick="cancelEdit('{{ timepost.id }}')">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -122,7 +122,7 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Edit Comment Modal -->
+                            <!-- Edit Comment -->
                             <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1"
                                 aria-labelledby="editCommentModalLabel-{{ comment.id }}" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -143,7 +143,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cancel</button>
+                                                        onclick="cancelCommentEdit('{{ comment.id }}')">Cancel</button>
                                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                                 </div>
                                             </form>
@@ -197,12 +197,12 @@
             </div>
 
             <!-- Delete Timepost -->
-            <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="deleteModal-{{ timepost.id }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel-{{ timepost.id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                            <h5 class="modal-title" id="deleteModalLabel-{{ timepost.id }}">Confirm Deletion</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

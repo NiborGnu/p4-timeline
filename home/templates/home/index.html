@@ -39,7 +39,7 @@
                                 <button id="saveBtn-{{ timepost.id }}" aria-label="Save Changes" type="submit"
                                     class="btn btn-primary" disabled>Save Changes</button>
                                 <button aria-label="Cancel" type="button" class="btn btn-secondary"
-                                    onclick="toggleEdit('{{ timepost.id }}')">Cancel</button>
+                                    onclick="cancelEdit('{{ timepost.id }}')">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -82,12 +82,12 @@
                         <li class="list-group-item text-muted ether-side">
                             <!-- Edit/Delete TimePost (for post owner or superuser) -->
                             {% if timepost.user == user or user.is_superuser %}
-                            <!-- Delete Button -->
+                            <!-- Delete TimePost Button -->
                             <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal-{{ timepost.id }}" aria-label="Delete Post">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
-                            <!-- Edit Button -->
+                            <!-- Edit TimePost Button -->
                             <button class="btn btn-warning btn-sm" onclick="toggleEdit('{{ timepost.id }}')"
                                 aria-label="Edit post" data-next="{{ request.path }}">
                                 <i class="fa-regular fa-pen-to-square"></i>
@@ -148,7 +148,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cancel</button>
+                                                        onclick="cancelCommentEdit('{{ comment.id }}')">Cancel</button>
                                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                                 </div>
                                             </form>
