@@ -158,9 +158,11 @@ IPhone 15
 
 ## Bugs
 
+
+### Bug 1
 - Found a bug that you could edit your post and leave it empty.
 
-   - Fix by implementing a form, JavaScript and HTML for the comments. 
+   - Fix by implementing a form, JavaScript and HTML for the comments. (Code Below)
 
    ```python
    class CommentForm(forms.ModelForm):
@@ -202,3 +204,106 @@ IPhone 15
       This field cannot be empty.
    </div>
    ```
+
+
+### Bug 2
+- Found a bug that you edited the timepost and the edited text didn't revert back to saved text if you pushed cancel button
+
+   - Fixed 
+      - HTML: 
+         - Changing function triggered by cancel button from toggleEdit > cancelEdit
+      - JavaScript: 
+         - Changing function toggleEdit(//New is the added lines of code) to save the pre eddited text 
+         - Added a function cancelEdit to revert it back to that text when cancel is clicked
+
+```HTML
+<!-- Before -->
+<button aria-label="Cancel" type="button" class="btn btn-secondary"
+   onclick="toggleEdit('{{ timepost.id }}')">Cancel</button>
+
+<!-- After -->
+<button aria-label="Cancel" type="button" class="btn btn-secondary"
+   onclick="cancelEdit('{{ timepost.id }}')">Cancel</button>
+```
+
+```JavaScript
+function toggleEdit(id) {
+   var viewElement = document.getElementById("timepost-view-" + id);
+   var editElement = document.getElementById("edit-form-" + id);
+   var bodyElement = document.getElementById("body-" + id);  //New
+   if (viewElement.style.display === "none") {
+      viewElement.style.display = "block";
+      editElement.style.display = "none";
+   } else {
+      // Store the original value as a data attribute
+      bodyElement.setAttribute('data-original-value', bodyElement.value); //New
+      viewElement.style.display = "none";
+      editElement.style.display = "block";
+   }
+}
+```
+
+```JavaScript
+// Function to revert the changes made in the edit form
+function cancelEdit(id) {
+    var bodyElement = document.getElementById("body-" + id);
+
+    // Restore the original value from the stored data attribute
+    var originalValue = bodyElement.getAttribute('data-original-value');
+    if (originalValue !== null) {
+        bodyElement.value = originalValue;
+    }
+
+    // Hide the edit form and show the view mode
+    toggleEdit(id);
+}
+```
+
+### Bug 3
+- Found a bug that you edited the timepost comment and the edited text didn't revert back to saved text if you pushed cancel button
+
+   - HTML
+      - Added a onclick function to the HTML button
+   - JavaScript
+      - Added cancelCommentEdit function to restore the original comment text and hide the modal.
+      - Added show.bs.modal event listener to store the original comment text when the modal opens.
+
+```HTML
+<!-- Befor -->
+<button type="button" class="btn btn-secondary" 
+   data-bs-dismiss="modal">Cancel</button>
+
+<!-- After -->
+<button type="button" class="btn btn-secondary"
+   onclick="cancelCommentEdit('{{ comment.id }}')">Cancel</button>
+```
+
+```JavaScript
+// Function to revert changes in the edit comment modal
+function cancelCommentEdit(id) {
+   var commentBodyElement = document.querySelector("#editCommentModal-" + id + " textare[name='comment_body']");
+   var originalValue = commentBodyElement.getAttribute('data-original-value');
+   if (originalValue !== null) {
+      commentBodyElement.value = originalValue;
+   }
+   // Hide the modal
+   var modal = document.getElementById("editCommentModal-" + id);
+   var modalInstance = bootstrap.Modal.getInstance(modal);
+   if (modalInstance) {
+      modalInstance.hide();
+   }
+}
+```
+
+```JavaScript
+// Ensure that the original comment value is set when the modal is opened
+document.addEventListener('show.bs.modal', function (event) {
+   var button = event.relatedTarget;
+   var commentId = button.getAttribute('data-bs-target').split('-')[1];
+   var modal = document.getElementById('editCommentModal-' + commentId);
+   var textarea = modal.querySelector('textarea[name="comment_body"]');
+
+   // Store the original value
+   textarea.setAttribute('data-original-value', textarea.value);
+});
+```
