@@ -129,7 +129,38 @@ All pages were run through the Code institute's [Pep8](https://pep8ci.herokuapp.
 
 Lighthouse report showed good results.
 
-![Lighthouse v1](documentation/lighthouse.png)
+- Home Page (Not Logged In)
+
+![Lighthouse v1](documentation)
+
+- Login Page
+
+![Lighthouse v1](documentation)
+
+- Register Page
+
+![Lighthouse v1](documentation)
+
+- Home Page (Logged In)
+
+![Lighthouse v1](documentation/lighthouse/lighthouse-logged-in-home-page.png)
+
+- My Profile Page
+
+![Lighthouse v1](documentation)
+
+- Users Page
+
+![Lighthouse v1](documentation)
+
+- Logout Page
+
+![Lighthouse v1](documentation)
+
+- Search Page
+
+![Lighthouse v1](documentation)
+
 
 ## Responsiveness
 
