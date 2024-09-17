@@ -14,10 +14,7 @@ Timeline, a social media platform designed for users to connect, share, and enga
   - [Table of Contents](#table-of-contents)
 - [User Experience Design](#user-experience-design)
   - [The Strategy Plan](#the-strategy-plan)
-    - [Site Goals](#site-goals)
     - [User Stories](#user-stories)
-    - [Agile Planning](#agile-planning)
-  - [The Scope Plan](#the-scope-plan)
   - [The Structure Plan](#the-structure-plan)
     - [Features](#features)
     - [Features Left to Implement](#features-left-to-implement)
@@ -29,542 +26,74 @@ Timeline, a social media platform designed for users to connect, share, and enga
     - [Design](#design)
     - [Color Scheme](#color-scheme)
     - [Typography](#typography)
-    - [Imagery](#imagery)
 - [Technologies](#technologies)
 - [Testing](#testing)
 - [Deployment](#deployment)
   - [Version Control](#version-control)
-  - [Deployment Instructions](#deployment-instructions)
-  - [Run Locally](#run-locally)
+  - [Local Deployment](#local-deployment)
   - [Forking the Project](#forking-the-project)
 - [Credits](#credits)
 
 ## User Experience Design
 
-## The Strategy Plan
-
-### Site Goals
-
-- Increase interaction through comments, shares, and time spent on the site.
-- Ensure a seamless and intuitive navigation, reducing bounce rates.
-
-### User Stories
-
-![User Stories](documentation/user-story.png)
-
-#### User Story: View Followers
-
-- **As a**: user
-- **I want to**: view a list of my followers
-- **So that**: I can see who is following me
-
-- **Acceptance Criteria**:
-  - 1**AC**: A list of followers is displayed, showing each follower's profile picture, username, and a link to their profile.
-  - 2**AC**: If no followers exist, a message is displayed.
-
----
-
-#### User Story: View Follows
-
-- **As a**: user
-- **I want to**: view a list of users I follow
-- **So that**: I can manage the people I am following
-
-- **Acceptance Criteria**:
-  - 1**AC**: A list of followed users is displayed, showing each user's profile picture, username, and a link to their profile.
-  - 2**AC**: If no follows exist, a message is displayed.
-
----
-
-#### User Story: View User Profile
-
-- **As a**: user
-- **I want to**: view a specific user's profile page
-- **So that**: I can see their posts and other profile-related information
-
-- **Acceptance Criteria**:
-  - 1**AC**: The profile page shows the user's posts (timeposts), profile picture, and follow/unfollow button.
-  - 2**AC**: I can also see the user's followers and users they follow.
-
----
-
-#### User Story: Edit/Delete Post on Profile
-
-- **As a**: user
-- **I want to**: edit or delete my own posts on my profile
-- **So that**: I can update or remove my previous content
-
-- **Acceptance Criteria**:
-  - 1**AC**: I can edit my post using an edit form and delete it through a delete button with a confirmation modal.
-  - 2**AC**: Posts are updated immediately after editing or deletion.
-
----
-
-#### User Story: Comment on Posts
-
-- **As a**: user
-- **I want to**: add, edit, or delete comments on posts
-- **So that**: I can engage with other users' content
-
-- **Acceptance Criteria**:
-  - 1**AC**: I can add comments, and edit or delete my own comments using buttons that trigger modals for confirmation.
-  - 2**AC**: Comments show the date they were posted and the user who commented.
-
----
-
-#### User Story: Like/Dislike Post
-
-- **As a**: user
-- **I want to**: like or dislike a post
-- **So that**: I can express my opinion on the content
-
-- **Acceptance Criteria**:
-  - 1**AC**: Clicking like or dislike updates the respective counters.
-
----
-
-#### User Story: Follow/Unfollow User
-
-- **As a**: user
-- **I want to**: follow or unfollow other users
-- **So that**: I can keep up with their posts or stop receiving updates from them
-
-- **Acceptance Criteria**:
-  - 1**AC**: A follow/unfollow button is present on each user's profile, updating immediately after action.
-  - 2**AC**: I can follow/unfollow from the profile or from the list of followers/followed.
-
----
-
-#### User Story: View All Users
-
-- **As a**: user
-- **I want to**: see a list of all users on the platform
-- **So that**: I can explore other user profiles
-
-- **Acceptance Criteria**:
-  - 1**AC**: A list of users is displayed, showing each user's profile picture, username, and a link to their profile.
-  - 2**AC**: If no users are found, a message is displayed.
-
----
-
-#### User Story: View Timeline
-
-- **As a**: user
-- **I want to**: view a timeline of posts made by me and other users
-- **So that**: I can stay updated on their activities
-
-- **Acceptance Criteria**:
-  - 1**AC**: The timeline displays posts in reverse chronological order.
-  - 2**AC**: Each post includes content, like and dislike counts, and a comment button.
-  - 3**AC**: I can see who created the post and when.
-
----
-
-#### User Story: Create New Post
-
-- **As a**: user
-- **I want to**: create a new post
-- **So that**: I can share my thoughts or updates
-
-- **Acceptance Criteria**:
-  - 1**AC**: There is a form where I can type my post.
-  - 2**AC**: After submitting, the post appears on the timeline with a timestamp.
-
----
-
-#### User Story: Edit My Post
-
-- **As a**: user
-- **I want to**: edit my own post
-- **So that**: I can correct mistakes or update content
-
-- **Acceptance Criteria**:
-  - 1**AC**: I can edit my post by clicking an edit button.
-  - 2**AC**: Changes are saved and updated on the timeline.
-
----
-
-#### User Story: Delete My Post
-
-- **As a**: user
-- **I want to**: delete my post
-- **So that**: I can remove it from the timeline
-
-- **Acceptance Criteria**:
-  - 1**AC**: I can delete my post by clicking a delete button with a confirmation prompt.
-
----
-
-#### User Story: Add Comment to Post
-
-- **As a**: user
-- **I want to**: add a comment to a post
-- **So that**: I can engage with the content or author
-
-- **Acceptance Criteria**:
-  - 1**AC**: A button opens the comment section for each post.
-  - 2**AC**: I can type and submit a comment, which appears under the post.
-
----
-
-#### User Story: Edit/Delete Comment
-
-- **As a**: user
-- **I want to**: edit or delete my comments on a post
-- **So that**: I can correct mistakes or remove comments
-
-- **Acceptance Criteria**:
-  - 1**AC**: I see options to edit or delete my comments.
-  - 2**AC**: The comment updates after editing or is removed after deletion.
-
----
-
-#### User Story: Search for Users
-
-- **As a**: user
-- **I want to**: search for other users by their username
-- **So that**: I can find and view their profile
-
-- **Acceptance Criteria**:
-  - 1**AC**: A search bar allows me to enter a query.
-  - 2**AC**: Results show matching users and link to their profiles.
-
----
-
-#### User Story: View My Profile
-
-- **As a**: user
-- **I want to**: view my own profile
-- **So that**: I can see my posts and activities
-
-- **Acceptance Criteria**:
-  - 1**AC**: A "My Profile" link in the navbar takes me to my profile with my posts and details.
-
----
-
-#### User Story: View Other Users' Profiles
-
-- **As a**: user
-- **I want to**: view other users' profiles
-- **So that**: I can see their posts and activities
-
-- **Acceptance Criteria**:
-  - 1**AC**: Clicking on a user’s name from their posts or comments takes me to their profile page.
-
----
-
-#### User Story: Logout
-
-- **As a**: user
-- **I want to**: log out of my account
-- **So that**: I can leave the session securely
-
-- **Acceptance Criteria**:
-  - 1**AC**: A "Logout" button in the navbar logs me out and redirects to the login page.
-
----
-
-#### User Story: View Timeline Without Login
-
-- **As a**: unauthenticated user
-- **I want to**: see a welcome message prompting me to sign up or log in
-- **So that**: I understand that I need an account to view the timeline
-
-- **Acceptance Criteria**:
-  - 1**AC**: A welcome message with login and register buttons appears.
-  - 2**AC**: I cannot view the timeline unless logged in.
-
----
-
-#### User Story: Register
-
-- **As a**: new user
-- **I want to**: register for an account
-- **So that**: I can start using the platform
-
-- **Acceptance Criteria**:
-  - 1**AC**: A "Register" button in the navbar takes me to the registration page.
-  - 2**AC**: After registration, I am redirected to the homepage and logged in.
-
----
-
-#### User Story: Login
-
-- **As a**: returning user
-- **I want to**: log in to my account
-- **So that**: I can access my profile and interact with posts
-
-- **Acceptance Criteria**:
-  - 1**AC**: A "Login" button in the navbar takes me to the login page.
-  - 2**AC**: After logging in, I am redirected to the timeline page.
-
----
-
-#### User Story: Notifications
-
-- **As a**: user
-- **I want to**: see success or error notifications after actions
-- **So that**: I know the outcome of my actions
-
-- **Acceptance Criteria**:
-  - 1**AC**: I receive alerts after submitting posts, editing comments, or deleting content.
-  - 2**AC**: Notifications disappear automatically or can be closed manually.
-
-### Agile Planning
-
-### User Management
-
-- **Encompasses**:
-  - **User Story: View Followers**
-    - **As a**: user
-    - **I want to**: view a list of my followers
-    - **So that**: I can see who is following me
-    - **Acceptance Criteria**:
-      1. A list of followers is displayed, showing each follower's profile picture, username, and a link to their profile.
-      2. If no followers exist, a message is displayed.
-
-  - **User Story: View Follows**
-    - **As a**: user
-    - **I want to**: view a list of users I follow
-    - **So that**: I can manage the people I am following
-    - **Acceptance Criteria**:
-      1. A list of followed users is displayed, showing each user's profile picture, username, and a link to their profile.
-      2. If no follows exist, a message is displayed.
-
-  - **User Story: Follow/Unfollow User**
-    - **As a**: user
-    - **I want to**: follow or unfollow other users
-    - **So that**: I can keep up with their posts or stop receiving updates from them
-    - **Acceptance Criteria**:
-      1. A follow/unfollow button is present on each user's profile, updating immediately after action.
-      2. I can follow/unfollow from the profile or from the list of followers/followed.
-
-  - **User Story: Search for Users**
-    - **As a**: user
-    - **I want to**: search for other users by their username
-    - **So that**: I can find and view their profile
-    - **Acceptance Criteria**:
-      1. A search bar allows me to enter a query.
-      2. Results show matching users and link to their profiles.
-
-  - **User Story: View Other Users' Profiles**
-    - **As a**: user
-    - **I want to**: view other users' profiles
-    - **So that**: I can see their posts and activities
-    - **Acceptance Criteria**:
-      1. Clicking on a user’s name from their posts or comments takes me to their profile page.
-
-- **Involves**:
-  - Displaying user lists and profiles
-  - Managing user follow relationships
-  - Searching for users and navigating profiles
-
-### Profile Management
-
-- **Encompasses**:
-  - **User Story: View User Profile**
-    - **As a**: user
-    - **I want to**: view a specific user's profile page
-    - **So that**: I can see their posts and other profile-related information
-    - **Acceptance Criteria**:
-      1. The profile page shows the user's posts (timeposts), profile picture, and follow/unfollow button.
-      2. I can also see the user's followers and users they follow.
-
-  - **User Story: View My Profile**
-    - **As a**: user
-    - **I want to**: view my own profile
-    - **So that**: I can see my posts and activities
-    - **Acceptance Criteria**:
-      1. A "My Profile" link in the navbar takes me to my profile with my posts and details.
-
-  - **User Story: Edit/Delete Post on Profile**
-    - **As a**: user
-    - **I want to**: edit or delete my own posts on my profile
-    - **So that**: I can update or remove my previous content
-    - **Acceptance Criteria**:
-      1. I can edit my post using an edit form and delete it through a delete button with a confirmation modal.
-      2. Posts are updated immediately after editing or deletion.
-
-  - **User Story: Edit My Post**
-    - **As a**: user
-    - **I want to**: edit my own post
-    - **So that**: I can correct mistakes or update content
-    - **Acceptance Criteria**:
-      1. I can edit my post by clicking an edit button.
-      2. Changes are saved and updated on the timeline.
-
-  - **User Story: Delete My Post**
-    - **As a**: user
-    - **I want to**: delete my post
-    - **So that**: I can remove it from the timeline
-    - **Acceptance Criteria**:
-      1. I can delete my post by clicking a delete button with a confirmation prompt.
-
-- **Involves**:
-  - Viewing and managing profiles and posts
-  - Editing and deleting personal content
-
-### Post Interaction
-
-- **Encompasses**:
-  - **User Story: Comment on Posts**
-    - **As a**: user
-    - **I want to**: add, edit, or delete comments on posts
-    - **So that**: I can engage with other users' content
-    - **Acceptance Criteria**:
-      1. I can add comments, and edit or delete my own comments using buttons that trigger modals for confirmation.
-      2. Comments show the date they were posted and the user who commented.
-
-  - **User Story: Like/Dislike Post**
-    - **As a**: user
-    - **I want to**: like or dislike a post
-    - **So that**: I can express my opinion on the content
-    - **Acceptance Criteria**:
-      1. Clicking like or dislike updates the respective counters.
-
-  - **User Story: Add Comment to Post**
-    - **As a**: user
-    - **I want to**: add a comment to a post
-    - **So that**: I can engage with the content or the author
-    - **Acceptance Criteria**:
-      1. A button opens the comment section for each post.
-      2. I can type and submit a comment, which appears under the post.
-
-  - **User Story: Edit/Delete Comment**
-    - **As a**: user
-    - **I want to**: edit or delete my comments on a post
-    - **So that**: I can correct mistakes or remove comments
-    - **Acceptance Criteria**:
-      1. I see options to edit or delete my comments.
-      2. The comment updates after editing or is removed after deletion.
-
-- **Involves**:
-  - Interacting with posts through comments and reactions
-  - Managing comments on posts
-
-### Content Management
-
-- **Encompasses**:
-  - **User Story: Create New Post**
-    - **As a**: user
-    - **I want to**: create a new post
-    - **So that**: I can share my thoughts or updates
-    - **Acceptance Criteria**:
-      1. There is a form where I can type my post.
-      2. After submitting, the post appears on the timeline with a timestamp.
-
-  - **User Story: Edit My Post**
-    - **As a**: user
-    - **I want to**: edit my own post
-    - **So that**: I can correct mistakes or update content
-    - **Acceptance Criteria**:
-      1. I can edit my post by clicking an edit button.
-      2. Changes are saved and updated on the timeline.
-
-- **Involves**:
-  - Creating and updating posts on the platform
-
-### Timeline Management
-
-- **Encompasses**:
-  - **User Story: View Timeline**
-    - **As a**: user
-    - **I want to**: view the timeline of posts made by other users
-    - **So that**: I can stay updated on their activities
-    - **Acceptance Criteria**:
-      1. The timeline displays posts in reverse chronological order.
-      2. Each post includes content, like and dislike counts, and a comment button.
-      3. I can see who created the post and when.
-
-  - **User Story: View Timeline Without Login**
-    - **As a**: unauthenticated user
-    - **I want to**: see a welcome message prompting me to sign up or log in
-    - **So that**: I understand that I need an account to view the timeline
-    - **Acceptance Criteria**:
-      1. A welcome message with login and register buttons appears.
-      2. I cannot view the timeline unless logged in.
-
-- **Involves**:
-  - Displaying posts on a timeline for logged-in users and not for unauthenticated users
-
-### Authentication and Authorization
-
-- **Encompasses**:
-  - **User Story: Register**
-    - **As a**: new user
-    - **I want to**: register for an account
-    - **So that**: I can start using the platform
-    - **Acceptance Criteria**:
-      1. A "Register" button in the navbar takes me to the registration page.
-      2. After registration, I am redirected to the homepage and logged in.
-
-  - **User Story: Login**
-    - **As a**: returning user
-    - **I want to**: log in to my account
-    - **So that**: I can access my profile and interact with posts
-    - **Acceptance Criteria**:
-      1. A "Login" button in the navbar takes me to the login page.
-      2. After logging in, I am redirected to the timeline page.
-
-  - **User Story: Logout**
-    - **As a**: user
-    - **I want to**: log out of my account
-    - **So that**: I can leave the session securely
-    - **Acceptance Criteria**:
-      1. A "Logout" button in the navbar logs me out and redirects to the login page.
-
-- **Involves**:
-  - User registration, login, and logout processes
-
-### Notifications
-
-- **Encompasses**:
-  - **User Story: Notifications**
-    - **As a**: user
-    - **I want to**: see success or error notifications after actions
-    - **So that**: I know the outcome of my actions
-    - **Acceptance Criteria**:
-      1. I receive alerts after submitting posts, editing comments, or deleting content.
-      2. Notifications disappear automatically or can be closed manually.
-
-- **Involves**:
-  - Providing feedback to users on their actions and system status
-
-These stories involve:
--Backend functionality for administrators to control various aspects of the Timeline operations and user data
-
-### Why These are Epics
-
-- **Complexity**: They involve multiple interconnected features and functionalities, likely requiring more development effort than a single user story.
-- **Scope**: They represent broader user goals rather than specific, isolated actions.
-
-## The Scope Plan
-
-- **Management:**
-  - **Superuser**: Can edit and delete all comments, Timeposts. Can delete users from webpage.
-
-- **User Authentication and Management:**
-  - **Register**: New users can sign up for an account.
-  - **Login/Logout**: Users can log into and out of their accounts.
-
-- **User Profiles:**
-  - **View Profile**: Users can view their own and other users' profiles.
-  - **Edit Profile**: Users can edit their own posts and profile information.
-
-- **Post Interaction:**
-  - **Create Post**: Users can create new posts.
-  - **Edit/Delete Post**: Users can edit or delete their own posts.
-  - **Like/Dislike Post**: Users can express opinions on posts through likes or dislikes.
-
-- **Comment Management:**
-  - **Add/Edit/Delete Comment**: Users can add, edit, or delete comments on posts.
-
-- **Timeline and Content Viewing:**
-  - **View Timeline**: Users can view a timeline of posts from users they follow.
-  - **View Timeline Without Login**: Unauthenticated users are shown a welcome message prompting them to log in or register.
-
-- **User Interaction:**
-  - **Follow/Unfollow Users**: Users can follow or unfollow other users to manage their feed.
+# The Strategy Plan
+
+The overall approach was to build a full stack application using the Django framework linked to a PostgreSQL database. PostgreSQL is a popular and adaptable relational database management system and Django is a flexible framework which easily integrates APIs, allowing for a streamlined development cycle. Both are open source and well supported allowing for easy maintenance, future development, and customization. Bootstrap 5 was used at the front end to speed up the design process.
+
+The site was designed using an Agile approach. Epics and user stories were collected, in the project GitHub repository, and prioritized according to the MOSCOW system. MOSCOW organizes stories and features into 'Must have', 'Should have', 'Could have', and 'Won't have' categories. This allows Agile developers to prioritize which parts of the program to create first. After a fixed period of time, the development cycle ends and the project is reviewed. Features may be recategorized and additional user stories added throughout based on testing and feedback received.
+
+# Scope
+
+The following epics and user stories were collected. Epics were broken down into user stories, additional user stories were added based on feedback.
+
+## Epics
+
+- Creation of a full-stack web application for managing a user timeline and interactions using Django.
+- Users should have full CRUD control over their posts and comments via the front end.
+- Users should be able to search for, view, and interact with other users' profiles and posts.
+- The site should include user authentication, including registration, login, and logout functionalities.
+- The site should display a menu.
+- Development of comprehensive documentation to support maintenance and future updates of the site.
+
+# User Stories
+
+### Must Have
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#3](https://github.com/NiborGnu/p4-timeline/issues/3) | As a user, I want to view a timeline of posts made by me and other users so that I can stay updated on their activities. |
+| [#4](https://github.com/NiborGnu/p4-timeline/issues/4) | As a user, I want to create a new post so that I can share my thoughts or updates. |
+| [#5](https://github.com/NiborGnu/p4-timeline/issues/5) | As a user, I want to edit my own post so that I can correct mistakes or update content. |
+| [#6](https://github.com/NiborGnu/p4-timeline/issues/6) | As a user, I want to delete my post so that I can remove it from the timeline. |
+| [#7](https://github.com/NiborGnu/p4-timeline/issues/7) | As a user, I want to like or dislike a post so that I can express my opinion on the content. |
+| [#8](https://github.com/NiborGnu/p4-timeline/issues/8) | As a user, I want to add a comment to a post so that I can engage with the content or author. |
+| [#9](https://github.com/NiborGnu/p4-timeline/issues/9) | As a user, I want to edit or delete my comments on a post so that I can correct mistakes or remove comments. |
+| [#10](https://github.com/NiborGnu/p4-timeline/issues/10) | As a user, I want to search for other users by their username so that I can find and view their profile. |
+| [#11](https://github.com/NiborGnu/p4-timeline/issues/11) | As a user, I want to view my own profile so that I can see my posts and activities. |
+| [#12](https://github.com/NiborGnu/p4-timeline/issues/12) | As a user, I want to view other users' profiles so that I can see their posts and activities. |
+| [#13](https://github.com/NiborGnu/p4-timeline/issues/13) | As a user, I want to log out of my account so that I can leave the session securely. |
+| [#15](https://github.com/NiborGnu/p4-timeline/issues/15) | As a new user, I want to register for an account so that I can start using the platform. |
+| [#16](https://github.com/NiborGnu/p4-timeline/issues/16) | As a returning user, I want to log in to my account so that I can access my profile and interact with posts. |
+
+### Should Have
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#14](https://github.com/NiborGnu/p4-timeline/issues/14) | As an unauthenticated user, I want to see a welcome message prompting me to sign up or log in so that I understand that I need an account to view the timeline. |
+| [#17](https://github.com/NiborGnu/p4-timeline/issues/17) | As a user, I want to see success or error notifications after actions so that I know the outcome of my actions. |
+| [#18](https://github.com/NiborGnu/p4-timeline/issues/18) | As a user, I want to view a list of my followers so that I can see who is following me. |
+| [#19](https://github.com/NiborGnu/p4-timeline/issues/19) | As a user, I want to view a list of users I follow so that I can manage the people I am following. |
+| [#20](https://github.com/NiborGnu/p4-timeline/issues/20) | As a user, I want to view a specific user's profile page so that I can see their posts and other profile-related information. |
+
+### Could Have
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#21](https://github.com/NiborGnu/p4-timeline/issues/21) | As a user, I want to edit or delete my own posts on my profile so that I can update or remove my previous content. |
+| [#22](https://github.com/NiborGnu/p4-timeline/issues/22) | As a user, I want to add, edit, or delete comments on posts so that I can engage with other users' content. |
+| [#23](https://github.com/NiborGnu/p4-timeline/issues/23) | As a user, I want to like or dislike a post so that I can express my opinion on the content. |
+| [#24](https://github.com/NiborGnu/p4-timeline/issues/24) | As a user, I want to follow or unfollow other users so that I can keep up with their posts or stop receiving updates from them. |
+| [#25](https://github.com/NiborGnu/p4-timeline/issues/25) | As a user, I want to see a list of all users on the platform so that I can explore other user profiles. |
 
 ## The Structure Plan
 
@@ -668,7 +197,7 @@ Utilizes a responsive design framework to ensure the platform is usable and visu
 
 Entity relationship diagram was created using [DBVisualizer](https://www.dbvis.com/) and shows the schemas for each of the models and how they are related.
 
-![ERD](documentation/p4-timeline-ERD.svg)
+![ERD](documentation/p4-timeline-erd.svg)
 
 ## Security
 
@@ -721,35 +250,221 @@ Entity relationship diagram was created using [DBVisualizer](https://www.dbvis.c
   - **Black**: `#000000` - Used for text, offering sharp contrast for maximum readability and clarity. Conveys authority, formality, and modern sophistication.
   - **White**: `#ffffff` - Used for the background, providing a clean, open space that enhances readability and allows other elements to stand out with clarity and simplicity.
 
-### Typography
+## Typography
 
-- HTML
-  - The structure of the Website was developed using HTML as the main language.
-- CSS
-  - The Website was styled using custom CSS in an external file.
-- Python
-  - Python was the main programming language used for the application using the Django Framework.
-- JavaScript
-  - JavaScript was used to enhance the interactivity and functionality of the Website, handling client-side scripting and dynamic content.
-- Visual Studio Code
-  - The website was developed using Visual Studio Code IDE
-- GitHub
-  - Source code is hosted on GitHub
-- Git
-  - Used to commit and push code during the development of the Website
-- Font Awesome
-  - This was used for various icons throughout the site
-- Favicon.io
-  - favicon files were created at https://favicon.io/favicon-converter/
-- balsamiq
+This project uses the following typography styles:
+
+### Fonts
+
+1. **Roboto**  
+   - **Styles**: Regular (400), Medium (500)
+   - **Source**: [Google Fonts](https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;500&display=swap)
+
+2. **SUSE**  
+   - **Styles**: Varies from Thin (100) to Black (800)
+   - **Source**: [Google Fonts](https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap)
+
+### Usage
+
+To use these fonts in your project, include the following in your CSS:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;500&family=SUSE:wght@100..800&display=swap');
+```
+
+---
+
+## Technologies
+- ### Languages:
+
+    + [Python 3.8.5](https://www.python.org/downloads/release/    python-385/): the primary language used to develop the    server-side of the website.
+    + [JS](https://www.javascript.com/): the primary language used to develop interactive components of the website.
+    + [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML): the markup language used to create the website.
+    + [CSS](https://developer.mozilla.org/en-US/docs/Web/css): the styling language used to style the website.
+
+- ### Frameworks and libraries:
+
+    + [Django](https://www.djangoproject.com/): python framework used to create all the logic.
+
+- ### Databases:
+
+    + [SQLite](https://www.sqlite.org/): was used as a development database. 
+    + [PostgreSQL](https://www.postgresql.org/): the database used to store all the data.
+
+- ### Other tools:
+
+    + [Git](https://git-scm.com/): the version control system used to manage the code.
+    + [Pip](https://pypi.org/project/pip/): the package manager used to install the dependencies.
+    + [Psycopg2](https://www.psycopg.org/): the database driver used to connect to the database.
+    + [GitHub](https://github.com/): used to host the website's source code.
+    + [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
+    + [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): was used to debug the website.
+    + [Font Awesome](https://fontawesome.com/): was used to create the icons used in the website.
+    + [W3C Validator](https://validator.w3.org/): was used to validate HTML5 code for the website.
+    + [W3C CSS validator](https://jigsaw.w3.org/css-validator/): was used to validate CSS code for the website.
+    + [JShint](https://jshint.com/): was used to validate JS code for the website.
+    + [PEP8](https://pep8.org/): was used to validate Python code for the website.
+
+
+
+
+- **Bootstrap**
+  - The CSS framework offering pre-designed components and a responsive grid system for layout.
+- **balsamiq**
   - wireframes were created using balsamiq from https://balsamiq.com/wireframes/desktop/#
 
-## Python Modules Used
+## Testing
 
-- Django function-based views (ListView, UpdateView, DeleteView, CreateView) - Used for the classes to create, read, update and delete.
-- messages - Used to pass messages to display feedback to the user upon actions
+Test cases and results can be found in the [TESTING.md](TESTING.md) file. This was moved due to the size of the file.
 
-## External Python Modules
+# Deployment
+
+- The app was deployed to [Heroku](https://www.heroku.com/).
+- The database was deployed to [ElephantSQL](https://www.elephantsql.com/).
+
+- The app can be reached by the [link](https://p4-timeline-3238b4375b60.herokuapp.com/).
+
+## Local deployment
+
+*Note:*
+  - This project requires to install all the requirements:
+  - Open the terminal window and type:
+  - `pip install -r requirements.txt`
+
+Create a local copy of the GitHub repository by following one of the two processes below:
+
+- Download ZIP file:
+  1. Go to the [GitHub Repo page](https://github.com/NiborGnu/p4-timeline).
+  1. Click the Code button and download the ZIP file containing the project.
+  1. Extract the ZIP file to a location on your PC.
+
+- Clone the repository:
+  1. Open a folder on your computer with the terminal.
+  1. Run the following command
+  - `git clone https://github.com/NiborGnu/p4-timeline.git`
+
+- Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
+
+  [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/NiborGnu/p4-timeline)
+
+---
+
+1. Install the dependencies:
+
+    - Open the terminal window and type:
+    - `pip install -r requirements.txt`
+
+
+1. Create a `.gitignore` file in the root directory of the project where you should add env.py and __pycache__ files to prevent the privacy of your secret data.
+
+1. Create a `.env` file. This will contain the following environment variables:
+
+    ```python
+    import os
+
+      os.environ['DATABASE_URL'] = 'will be used to connect to the database'
+      os.environ["SECRET_KEY"] = 'Add a secret key'
+      os.environ["DEBUG"] = 'True'
+      
+      # Go to your database and copy this variables
+      os.environ["NAME"] = ''
+      os.environ["USER"] = ''
+      os.environ["PASSWORD"] = ''
+      os.environ["HOST"] = ''
+    ```
+
+    *During the development stage DEBUG is set to True, but it is vital to change it to False.*
+
+1. Run the following commands in a terminal to make migrations: 
+    - `python manage.py makemigrations`
+    - `python manage.py migrate`
+1. Create a superuser to get access to the admin environment.
+    - `python manage.py createsuperuser`
+    - Enter the required information (your username, email and password).
+1. Run the app with the following command in the terminal:
+    - `python manage.py runserver`
+1. Open the link provided in a browser to see the app.
+
+1. If you need to access the admin page:
+    - Add /admin/ to the link provided.
+    - Enter your username and password (for the superuser that you have created before).
+    - You will be redirected to the admin page.
+
+**The app was deployed to Heroku**
+
+## Heroku Deployment
+
+* Set up a local workspace on your computer for Heroku:
+    - Create a list of requirements that the project needs to run:
+      - type this in the terminal: `pip freeze > requirements.txt`
+    - Commit and push the changes to GitHub
+    
+* Go to [www.heroku.com](www.heroku.com) 
+* Log in or create a Heroku account.
+* Create a new app with any unique name <name app>.
+
+  ![Heroku. Create New App](documentation/deployment/new_heroku_app.png)
+
+* Create a Procfile in your local workplace:
+
+  ![Heroku. Procfile](documentation/deployment/heroku_procfile.png)
+    
+    This file will will contain the following:
+    ```python
+        web: gunicorn <name app>.wsgi:application
+    ```
+    - Commit and push the changes to GitHub.
+
+* Go to the settings app in Heroku and go to Config Vars.
+
+  ![Heroku. Settings](documentation/deployment/settings_tab.png)
+
+Click on Reveal Config Vars and add the following config variables:
+
+| Key      | Value          |
+|-------------|-------------|
+| DISABLE_COLLECTSTATIC | 1 | 
+| NAME | ... | 
+| USER | ... |
+| PASSWORD | ... |
+| HOST | ... |
+| SECRET_KEY | ... |
+| DEBUG | ... |
+
+
+* Copy the value of Database NAME, USER, PASSWORD ,HOST and input it into the .env file and generate a secret key (you may use [Djecrety](https://djecrety.ir/) for secret key generation).
+* Change debug in settings.py to code below. The value of DEBUG can be set to anything do it only loks for a string in the env.py file. For easy understanding i suggest TRUE
+```python
+if os.path.exists('env.py'):
+    import env
+
+DEBUG = 'DEBUG' in os.environ
+```
+* Migrate changes.
+* Commit and push the changes to GitHub.
+* Connect your repository to Heroku.
+
+  ![Heroku. Connect to Heroku](documentation/deployment/heroku_connect_github.png)
+
+* Deploy the app to Heroku by clicking "Deploy Branch" button. If you want to enable auto-deployment, click "Enable Automatic Deployment".
+
+  ![Heroku. Deploy to Heroku](documentation/deployment/heroku_deploy_branch.png) 
+
+
+The deployment process will start.
+
+  ![Heroku. Deploy to Heroku](documentation/deployment/heroku_deploying.png) 
+
+Click "View build logs" to see the progress of the deployment.
+
+  ![Heroku. Deploy to Heroku](documentation/deployment/heroku_deploying_view.png)
+
+**Final Deployment**
+
+* Delete DISABLE_COLLECTSTATIC from config vars in Heroku dashboard.
+* Commit and push the changes to GitHub.
+
+### Requirements
 
 - asgiref==3.8.1
 - Django==5.1
@@ -758,39 +473,6 @@ Entity relationship diagram was created using [DBVisualizer](https://www.dbvis.c
 - sqlparse==0.5.1
 - whitenoise==6.7.0
 
-
-## Technologies
-
-- **HTML**
-  - The markup language used to structure the web pages.
-- **CSS**
-  - The styling language for defining the visual appearance of the web pages.
-- **JavaScript**
-  - The programming language used to create interactive elements and dynamic content on the web pages.
-- **Python**
-  - The primary programming language used for the Django backend.
-- **Django**
-  - The high-level web framework that powers the application's structure and logic.
-- **Bootstrap**
-  - The CSS framework offering pre-designed components and a responsive grid system for layout.
-- **Visual Studio Code**
-  - The website was developed using Visual Studio Code IDE.
-- **GitHub**
-  - Source code is hosted on GitHub.
-- **Git**
-  - Used to commit and push code during the development of the Website.
-- **Font Awesome**
-  - This was used for various icons throughout the site.
-- **Favicon.io**
-  - favicon files were created at https://favicon.io/favicon-converter/
-- **balsamiq**
-  - wireframes were created using balsamiq from https://balsamiq.com/wireframes/desktop/#
-
-## Testing
-
-Test cases and results can be found in the [TESTING.md](TESTING.md) file. This was moved due to the size of the file.
-
-## Deployment
 
 ### Version Control
 
@@ -804,48 +486,9 @@ The following git commands were used throughout development to push code to the 
 
 ```git push``` - This command was used to push all committed code to the remote repository on github.
 
-### Deployment Instructions
-
 ### Database Creation
 
 Made a postgresql database. And connected it.
-
-### Heroku Deployment
-
-The site was deployed to Heroku. The steps to deploy are as follows:
-
-- Navigate to heroku and create an account
-- Click the new button in the top right corner
-- Select create new app
-- Enter app name
-- Select region and click create app
-- Click the resources tab and search for Heroku Postgres
-- Select hobby dev and continue
-- Go to the settings tab and then click reveal config vars
-- Add the following config vars:
-  - SECRET_KEY: (Your secret key)
-  - DATABASE: (Look at database creation)
-      - NAME
-      - USER
-      - PASSWORD
-      - HOST
-- Click the deploy tab
-- Scroll down to Connect to GitHub and sign in / authorize when prompted
-- In the search box, find the repositoy you want to deploy and click connect
-- Scroll down to Manual deploy and choose the main branch
-- Click deploy
-
-### Run Locally
-
-Navigate to the GitHub ([p4-Timeline](https://github.com/NiborGnu/p4-timeline)):
-
-- Click on the code drop down button
-- Click on HTTPS
-- Copy the repository link to the clipboard
-- Open your IDE of choice (git must be installed for the next steps)
-- Type git clone copied-git-url into the IDE terminal
-
-The project will now have been cloned on your local machine for use.
 
 ### Forking the Project
 
@@ -856,12 +499,18 @@ Most commonly, forks are used to either propose changes to someone else's projec
 - On the top right of the page under the header, click the fork button.
 
 - This will create a duplicate of the full project in your GitHub Repository.
+---
 
 ## Credits
 
-- Google.
+- [GitHub](https://github.com/) for giving the idea of the project's design.
+- [Django](https://www.djangoproject.com/) for the framework.
+- [Font awesome](https://fontawesome.com/): for the free access to icons.
+- [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
+- [Postgresql](https://www.postgresql.org/): for providing a free database.
+- [fontawesome](https://fontawesome.com/): for providing free icons.
+- [googlefonts](https://fonts.google.com/): for providing free fonts.
+- [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
+- [Code Institute](https://codeinstitute.net/se/) - For the training and classes in all the basics of HTML, CSS, JAVASCRIPT, PYTHON and more!
 - Family and friends for testing and input.
 
-+ #### Inspiration
-  * [Code Institute](https://codeinstitute.net/se/) - For the training and classes in all the basics of HTML, CSS, JAVASCRIPT, PYTHON and more!
-  * [Fontawesome](https://fontawesome.com/search?q=more&o=r&m=free) - For the nice Icons I have been using that they have
