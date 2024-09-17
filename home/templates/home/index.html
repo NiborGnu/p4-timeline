@@ -6,7 +6,11 @@
 <!-- Main container for authenticated users -->
 <div class="container text-center">
     <!-- Title of the timeline -->
-    <h1>Timeline</h1>
+    <h1 class="my-4">Timeline</h1>
+    <!-- Explanation message for logged-in users -->
+    <p class="lead text-muted mb-4">Welcome to your timeline! Here, you can share your thoughts, interact with posts by
+        liking, commenting, or editing them, and stay updated with others' TimePosts. Start creating or engaging with
+        posts below!</p>
 </div>
 
 <div class="container text-center below">
@@ -248,11 +252,14 @@
 </div>
 {% else %}
 <!-- Message for unauthenticated users -->
-<div class="container text-center center-custom">
+<div class="container text-center center-custom py-5">
     <div class="row">
-        <div>
-            <h1>Welcome!</h1>
-            <p>Sign up or login to get started TimePosting and following!</p>
+        <div class="col-12">
+            <!-- Title with spacing -->
+            <h1 class="display-4 mb-4">Welcome!</h1>
+            <!-- Explanation paragraph styled as lead and muted text -->
+            <p class="lead text-muted mb-4">TimePost is a platform where you can share thoughts, interact with friends,
+                and discover interesting content. Sign up or login to get started TimePosting and following!</p>
             <!-- Links for registration and login -->
             <a href="{% url 'register' %}" class="btn btn-secondary graybutton" aria-label="Register">Register</a>
             <a href="{% url 'login' %}" class="btn btn-secondary graybutton" aria-label="Login">Login</a>
