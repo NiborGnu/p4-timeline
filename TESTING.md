@@ -145,15 +145,15 @@ Lighthouse report showed good results.
 
 - Home Page (Not Logged In)
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/lighthouse-logged-out-home-page.png)
 
 - Login Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/login.png)
 
 - Register Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/register.png)
 
 - Home Page (Logged In)
 
@@ -161,19 +161,19 @@ Lighthouse report showed good results.
 
 - My Profile Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/my-profile.png)
 
 - Users Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/users.png)
 
 - Logout Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/logout.png)
 
 - Search Page
 
-![Lighthouse v1](documentation)
+![Lighthouse v1](documentation/lighthouse/search.png)
 
 
 ## Responsiveness
@@ -196,10 +196,7 @@ Actual:
 
 Website behaved as expected.
 
-Website was also opened on the following devices and no responsive issues were seen:
-
-Iphone 13
-IPhone 15
+![360px](documentation/360.png)
 
 ## Bugs
 
