@@ -2,13 +2,23 @@
 
 | Description      | Steps                                                                                                                                           | Expected                                                                       | Actual                                                                         | Pass |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ---- |
-| open website     | open website                                                                                                                                    | Homepage                                                                       | Homepage                                                                       | Pass |
-| View menu        | Press menu in navbar                                                                                                                            | Menu view                                                                      | Menu view                                                                      | Pass |
-| Type a TimePost     | Write in text filed and push Timepost navbar                                                                                                                    | Timepost Made. Confirmation message                                                                   | Timepost Made. Confirmation message                                                                   | Pass |
-| Edit a Timepost   | Go to my edit icon, select the post you want to edit, Press edit, edit what you want and submit                  | See Timepost updated message and timepost updated   | See Timepost updated message and timepost updated   | Pass |
-| Make account     | Press register, type in your preferred username, first name, last name, email and password                                             | See message on home page You have successfully registered! Welcome!                    | See message on home page You have successfully registered! Welcome!                    | Pass |
-| login            | press login in navbar then input you username and password              |  Se the logged in homepage and message You have successfully logged in            | Se the logged in homepage and message You have successfully logged in              | Pass   |
-| logout           | Press logout in navbar then sign out                                                                                                            | See message you have signed out                                                | See message you have signed out                                                | Pass |
+| Open website | open website | Homepage | Homepage | Pass |
+| View menu | Press menu in navbar | Menu view | Men view | Pass |
+| View navbar | Press Home | Redirected to home page | Redirected to Home page | Pass |
+| View navbar | Press My Profile | Redirected my profile page | Redirected my profile page | Pass |
+| View navbar | Press Users | Redirected to Users page | Redirected to Users page | Pass |
+| View navbar | Type in search field and klick search button | Redirected to search page view the result | Redirected to search page view the result | Pass |
+| View navbar | Press Logout | Redirected to Logout page | Redirected to Logout page | Pass |
+| View Logout page | Press yes | Redirected to logged out part Home page logged out message shown | Redirected to logged out part Home page logged out message shown | Pass |
+| View Logout page | Press no | Redirected to logged in part Home page cancel logout message shown | Redirected to logged in part Home page cancel logout message shown | Pass |
+| Type a TimePost | Write in text filed and klick Timepost button | Timepost Made. Confirmation message | Timepost Made. Confirmation message | Pass |
+| Edit a Timepost | Go to my edit icon, select the post you want to edit, Press edit, edit what you want and submit | See Timepost updated message and timepost updated | See Timepost updated message and timepost updated | Pass |
+| Type a Comment | Write in text filed and klick comment button | Comment Made. Confirmation message | Comment Made. Confirmation message | Pass |
+| Edit a comment | Go to my edit comment icon, select the comment you want to edit, Press edit, edit what you want and submit | See comment updated message and comment updated | See comment updated message and comment updated | Pass |
+| Like a Timepost | Go to like icon on Timepost, select the post you want to like, Press like | See liked message and like counter updated and dislike counter removed 1 if Timepost previously was disliked by user | See liked message and like counter updated and dislike counter removed 1 if Timepost previously was disliked by user | Pass |
+| Disliked a Timepost | Go to like icon on Timepost, select the post you want to disliked, Press disliked | See disliked message and disliked counter updated and like counter removed 1 if Timepost previously was like by user | See disliked message and disliked counter updated and like counter removed 1 if Timepost previously was like by user | Pass |
+| Make account | Press register, type in your preferred username, first name, last name, email and password | See register message on home page | See register message on home page | Pass |
+| login | press login in navbar then input you username and password |  Se the logged in homepage and message | Se the logged in homepage and message | Pass |
 
 ## Navigation links
 
