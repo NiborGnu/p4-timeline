@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
+from django.template import loader
+from django.http import HttpResponse
 from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 
+
+def login_required_custom(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            template = loader.get_template('account/login_required.html')
+            return HttpResponse(template.render({}, request))
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 def login_user(request):
     """
@@ -27,7 +36,7 @@ def login_user(request):
     return render(request, 'account/login.html')
 
 
-@login_required
+@login_required_custom
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout_user(request):
     """
@@ -75,7 +84,7 @@ def register_user(request):
     return render(request, "account/register.html", {'form': form})
 
 
-@login_required
+@login_required_custom
 def update_user(request):
     """
     Handle user profile update. On POST, save updates and re-login user.

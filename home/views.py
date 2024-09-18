@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse, NoReverseMatch
 from django.contrib import messages
+from account.views import login_required_custom
 from home.models import TimePost, Comment
 from user.models import Profile
 from .forms import TimePostForm
@@ -41,7 +41,7 @@ def index(request):
         })
 
 
-@login_required
+@login_required_custom
 def follow(request, pk):
     """
     Follow a user by their profile ID.
@@ -61,7 +61,7 @@ def follow(request, pk):
     return redirect(request.POST.get('next', 'home'))
 
 
-@login_required
+@login_required_custom
 def unfollow(request, pk):
     """
     Unfollow a user by their profile ID.
@@ -81,7 +81,7 @@ def unfollow(request, pk):
     return redirect(request.POST.get('next', 'home'))
 
 
-@login_required
+@login_required_custom
 def timepost_like(request, pk):
     """
     Toggle like status on a TimePost.
@@ -107,7 +107,7 @@ def timepost_like(request, pk):
     return redirect(next_url)
 
 
-@login_required
+@login_required_custom
 def timepost_dislike(request, pk):
     """
     Toggle dislike status on a TimePost.
@@ -133,7 +133,7 @@ def timepost_dislike(request, pk):
     return redirect(next_url)
 
 
-@login_required
+@login_required_custom
 def delete_timepost(request, pk):
     """
     Delete a TimePost if the user is the owner or a superuser.
@@ -165,7 +165,7 @@ def delete_timepost(request, pk):
     return redirect(next_url)
 
 
-@login_required
+@login_required_custom
 def edit_timepost(request, pk):
     """
     Edit a TimePost if the user is the owner or a superuser.
@@ -228,7 +228,7 @@ def search(request):
         return redirect('login')
 
 
-@login_required
+@login_required_custom
 def add_comment(request, pk):
     """
     Add a comment to a TimePost.
@@ -263,7 +263,7 @@ def add_comment(request, pk):
     return redirect(f"{redirect_url}?comment_count={comment_count}")
 
 
-@login_required
+@login_required_custom
 def delete_comment(request, comment_id):
     """
     Delete a comment by its ID.
@@ -286,7 +286,7 @@ def delete_comment(request, comment_id):
     return redirect(next_url)
 
 
-@login_required
+@login_required_custom
 def edit_comment(request, comment_id):
     """
     Edit a comment by its ID.

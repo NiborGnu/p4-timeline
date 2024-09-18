@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import logout
+from account.views import login_required_custom
 from home.models import TimePost
 from user.models import Profile
 
 
-@login_required
+@login_required_custom
 def users(request):
     """
     List all users except the current logged-in user.
@@ -27,7 +27,7 @@ def users(request):
     )
 
 
-@login_required
+@login_required_custom
 def profile(request, pk):
     """
     View profile details and handle follow/unfollow actions.
@@ -69,7 +69,7 @@ def profile(request, pk):
     )
 
 
-@login_required
+@login_required_custom
 def followers(request, pk):
     """
     List followers of a user, excluding the current user.
@@ -99,7 +99,7 @@ def followers(request, pk):
         return redirect('home')
 
 
-@login_required
+@login_required_custom
 def follows(request, pk):
     """
     List users the profile is following, excluding the current user.
@@ -129,7 +129,7 @@ def follows(request, pk):
         return redirect('home')
 
 
-@login_required
+@login_required_custom
 def delete_profile(request, profile_id):
     """
     Handle profile deletion by user or superuser.

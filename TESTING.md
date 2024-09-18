@@ -342,3 +342,35 @@ document.addEventListener('show.bs.modal', function (event) {
    textarea.setAttribute('data-original-value', textarea.value);
 });
 ```
+
+### Bug 4
+
+- Found a bug that when viewing a page that exist but requires login the page show the 404 page. Changed out the @login_required to @login_required_costume for the views affected.
+
+   - HTML
+      - Made a page to show if youre tying to view a page without being logged in.
+   - Python
+      - Made a view function to redirect user if not logged in to [login_required](https://github.com/NiborGnu/p4-timeline/blob/main/account/templates/account/login_required.html)
+
+
+```html
+<div class="container mt-5">
+    <div class="alert alert-warning text-center" role="alert">
+        <h4 class="alert-heading">Login Required</h4>
+        <p>You need to be logged in to access this page. Please <a href="{% url 'login' %}" class="alert-link">log
+                in</a> to continue.</p>
+        <hr>
+        <p class="mb-0">Don't have an account? <a href="{% url 'register' %}" class="alert-link">Sign up here</a>.</p>
+    </div>
+</div>
+```
+
+```python
+def login_required_custom(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            template = loader.get_template('account/login_required.html')
+            return HttpResponse(template.render({}, request))
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+```
